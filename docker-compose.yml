@@ -17,10 +17,10 @@ services:
       dockerfile: Dockerfile
     container_name: keter-api
     ports:
-      - "5000:80"
+      - "5001:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Database=keter_db;Username=rafael_admin;Password=your_secure_password
+      - "ConnectionStrings__DefaultConnection=Host=db;Database=keter_db;Username=rafael_admin;Password=your_secure_password"
     depends_on:
       - db
 
