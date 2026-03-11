@@ -35,7 +35,6 @@ public class AuthService : IAuthService
         var emailExists = await _userManager.FindByEmailAsync(model.Email);
         if (emailExists != null)
             return new AuthResponseDto { IsSuccess = false, Message = "Email already exists!" };
-
         ApplicationUser user = new()
         {
             Email = model.Email,
@@ -44,14 +43,24 @@ public class AuthService : IAuthService
         };
 
         var result = await _userManager.CreateAsync(user, model.Password);
-        
+    
         if (!result.Succeeded)
         {
             var errors = string.Join(", ", result.Errors.Select(e => e.Description));
             return new AuthResponseDto { IsSuccess = false, Message = $"Creation failed! {errors}" };
         }
+        await _userManager.AddToRoleAsync(user, "User");
+        var signInData = new SignInDto 
+        { 
+            Username = model.Username, 
+            Password = model.Password 
+        };
 
-        return new AuthResponseDto { IsSuccess = true, Message = "User created successfully!" };
+        var authResponse = await SignInAsync(signInData);
+
+        authResponse.Message = "User created and logged in successfully!";
+    
+        return authResponse;
     }
 
     public async Task<AuthResponseDto> SignInAsync(SignInDto model)

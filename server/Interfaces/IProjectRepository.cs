@@ -8,7 +8,7 @@ namespace server.Interfaces
 {
     public interface IProjectRepository
     {
-        Task<IEnumerable<Project>> GetAllAsync();
+        Task<IEnumerable<Project>> GetAllByUserIdAsync(string userId);
         Task<Project?> GetByIdAsync(Guid id);
 
         Task<Project> CreateAsync(Project project);

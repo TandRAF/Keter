@@ -17,13 +17,12 @@ namespace server.Controllers
         }
 
         [HttpPost("sign-up")]
-        public async Task<IActionResult> SignUp([FromBody] SignUpDto model)
+        public async Task<IActionResult> SignUp([FromBody] SignUpDto signUpDto)
         {
-            var result = await _authService.SignUpAsync(model);
+            var result = await _authService.SignUpAsync(signUpDto);
             if (!result.IsSuccess)
-                return BadRequest(new { Status = "Error", result.Message });
-
-            return Ok(new { Status = "Success", result.Message });
+                return BadRequest(result);
+            return Ok(result);
         }
 
         [HttpPost("sign-in")]

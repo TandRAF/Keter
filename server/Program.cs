@@ -67,12 +67,49 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
+        
         context.Database.Migrate(); 
-        Console.WriteLine("Database migrated and seeded with raccoons successfully!");
+        Console.WriteLine("Database migrated successfully!");
+
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+
+        string[] roles = { "Admin", "User" };
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+                Console.WriteLine($"Role {role} created.");
+            }
+        }
+
+        var adminEmail = "admin@keter.com";
+        var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+        if (adminUser == null)
+        {
+            var newAdmin = new ApplicationUser
+            {
+                UserName = "admin",
+                Email = adminEmail,
+                EmailConfirmed = true
+            };
+
+            var result = await userManager.CreateAsync(newAdmin, "AdminKeter2026!");
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(newAdmin, "Admin");
+                Console.WriteLine("Admin account created and role assigned!");
+            }
+        }
+        
+        Console.WriteLine("Seed completed with raccoons and roles successfully!");
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"An error occurred while migrating the database: {ex.Message}");
+        Console.WriteLine($"An error occurred while migrating or seeding: {ex.Message}");
     }
 }
 

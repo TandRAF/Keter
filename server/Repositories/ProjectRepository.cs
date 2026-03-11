@@ -12,12 +12,12 @@ public class ProjectRepository : IProjectRepository
     {
         _context = context;
     }
-
-    public async Task<IEnumerable<Project>> GetAllAsync()
-    {
-        // Folosim AsNoTracking pentru ca citirea să fie mai rapidă
-        return await _context.Projects.AsNoTracking().ToListAsync(); 
-    }
+    public async Task<IEnumerable<Project>> GetAllByUserIdAsync(string userId) {
+    return await _context.Projects
+        .AsNoTracking() // Menținem viteza de citire
+        .Where(p => p.OwnerId == userId) // Filtrăm proiectele care aparțin utilizatorului
+        .ToListAsync();
+}
 
     public async Task<Project?> GetByIdAsync(Guid id)
     {

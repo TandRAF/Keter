@@ -16,10 +16,10 @@ public class ProjectService : IProjectService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ProjectReadDto>> GetAllEntitiesAsync()
-    {
-        var entities = await _repo.GetAllAsync();
-        return _mapper.Map<IEnumerable<ProjectReadDto>>(entities);
+   public async Task<IEnumerable<ProjectReadDto>> GetAllEntitiesAsync(string userId) 
+   {
+    var entities = await _repo.GetAllByUserIdAsync(userId);
+    return _mapper.Map<IEnumerable<ProjectReadDto>>(entities);
     }
 
     public async Task<ProjectReadDto?> GetEntityByIdAsync(Guid id)
@@ -36,20 +36,26 @@ public class ProjectService : IProjectService
         return _mapper.Map<ProjectReadDto>(entityModel);
     }
 
-    public async Task<bool> UpdateEntityAsync(Guid id, ProjectUpdateDto updateDto)
+    public async Task<bool> UpdateEntityAsync(Guid id, ProjectUpdateDto updateDto,string userId)
     {
         var existingEntity = await _repo.GetByIdAsync(id);
-        if (existingEntity == null) return false;
+        if (existingEntity == null || existingEntity.OwnerId != userId) 
+        {
+            return false;
+        }
         
         _mapper.Map(updateDto, existingEntity);
         await _repo.UpdateAsync(existingEntity);
         return true;
     }
 
-    public async Task<bool> DeleteEntityAsync(Guid id)
+    public async Task<bool> DeleteEntityAsync(Guid id, string userId)
     {
         var entity = await _repo.GetByIdAsync(id);
-        if (entity == null) return false;
+        if (entity == null || entity.OwnerId != userId) 
+        {
+            return false;
+        }
         
         await _repo.DeleteAsync(entity);
         return true;

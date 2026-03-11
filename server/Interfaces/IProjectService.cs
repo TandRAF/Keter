@@ -8,10 +8,10 @@ namespace server.Interfaces
 {
     public interface IProjectService
     {
-        Task<IEnumerable<ProjectReadDto>> GetAllEntitiesAsync();
+        Task<IEnumerable<ProjectReadDto>> GetAllEntitiesAsync(string userId);
         Task<ProjectReadDto?> GetEntityByIdAsync(Guid id);
         Task<ProjectReadDto> CreateEntityAsync(ProjectCreateDto entityCreateDto);
-        Task<bool> UpdateEntityAsync(Guid id, ProjectUpdateDto updateDto);
-        Task<bool> DeleteEntityAsync(Guid id);
+        Task<bool> UpdateEntityAsync(Guid id, ProjectUpdateDto updateDto,string userId);
+        Task<bool> DeleteEntityAsync(Guid id,string userId);
     }
 }
