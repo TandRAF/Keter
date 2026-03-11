@@ -1,0 +1,23 @@
+# Git
+.git
+.gitignore
+
+# .NET
+**/bin
+**/obj
+**/out
+
+# Node.js
+**/node_modules
+**/dist
+**/build
+.npm
+
+# Docker
+docker-compose*
+Dockerfile*
+.dockerignore
+
+# Documentație și altele
+README.md
+.vscode

@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: keter-db
+    restart: always
+    environment:
+      POSTGRES_USER: rafael_admin
+      POSTGRES_PASSWORD: your_secure_password
+      POSTGRES_DB: keter_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - keter_db_data:/var/lib/postgresql/data
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: keter-api
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Database=keter_db;Username=rafael_admin;Password=your_secure_password
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: keter-ui
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+volumes:
+  keter_db_data:
