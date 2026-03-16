@@ -7,6 +7,7 @@ using server.Data;
 using server.Models;
 using server.Interfaces;
 using server.Services;
+using server.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,13 +51,23 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
-
+//Services
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService,ProjectService>();
+builder.Services.AddScoped<IBoardService, BoardService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
+//Repository
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IBoardRepository, BoardRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+        options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+    });;
 
 var app = builder.Build();
 

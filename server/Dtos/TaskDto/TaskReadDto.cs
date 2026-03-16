@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using server.Dtos.TagDto;
 
 namespace server.Dtos.TaskDto
 {
@@ -10,7 +9,11 @@ namespace server.Dtos.TaskDto
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string? Description { get; set; }
-        public string Status { get; set; } = "To Do";
-        public Guid BoardId { get; set; }
+        
+        public Guid ColumnId { get; set; } 
+        public int Order { get; set; }
+        public string Status { get; set; } = string.Empty;
+        public string? AssignedUserId { get; set; }
+        public List<TagReadDto> Tags { get; set; } = new();
     }
 }

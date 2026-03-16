@@ -1,20 +1,33 @@
 import { api } from "./api";
 
+export interface TagT {
+  id: string;
+  name: string;
+  colorHex: string;
+}
 export interface TaskT {
   id: string;
-  boardId: string;
+  title: string;
+  description?: string;
+  columnId: string;
+  order: number;
+  status: string; 
+  assignedUserId?: string | null;
+  tags: TagT[];
+}
+
+export interface ColumnT {
+  id: string;
   title: string;
   order: number;
-  status: "TODO" | "IN_PROGRESS" | "DONE";
+  tasks: TaskT[];
 }
 
 export const taskService = {
-  getTasksByBoard: async (boardId: string): Promise<TaskT[]> => {
-    const response = await api.get<TaskT[]>(`/boards/${boardId}/tasks`);
-    return response.data;
-  },
-  updateTaskStatus: async (taskId: string, status: TaskT["status"]): Promise<TaskT> => {
-    const response = await api.patch<TaskT>(`/tasks/${taskId}`, { status });
-    return response.data;
+  moveTask: async (taskId: string, newColumnId: string, newOrder: number): Promise<void> => {
+    await api.put(`/task/${taskId}/move`, { 
+      newColumnId, 
+      newOrder 
+    });
   }
 };
