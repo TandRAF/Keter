@@ -1,0 +1,113 @@
+.uiKitContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #333;
+
+  .header {
+    margin-bottom: 3rem;
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+  }
+
+  .divider {
+    border: 0;
+    height: 1px;
+    background: #eaeaea;
+    margin: 4rem 0;
+  }
+
+  .section {
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #111;
+      border-left: 4px solid #007bff; /* Change to your primary brand color */
+      padding-left: 0.75rem;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      margin-top: -1rem;
+    }
+  }
+
+  .componentGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    .row {
+      background: #fdfdfd;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px dashed #ddd;
+
+      h3 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  /* Flex Layout for Buttons */
+  .flexBox {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  /* Grid Layout for Inputs */
+  .gridBox {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    background: #fdfdfd;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px dashed #ddd;
+
+    .fullWidth {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Icon Gallery Grid */
+  .iconGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    justify-items: center;
+    align-items: center;
+
+    /* Targets the SVGs rendered by your IconGallery */
+    svg {
+      width: 32px;
+      height: 32px;
+      fill: #333; /* Default icon color */
+      transition: all 0.2s ease;
+
+      &:hover {
+        fill: #007bff;
+        transform: scale(1.1);
+      }
+    }
+  }
+}

@@ -21,7 +21,7 @@ namespace server.Models
 
         public string? AssignedUserId { get; set; }
         public ApplicationUser? AssignedUser { get; set; }
-
+        public int Order { get; set; }
         public Guid BoardId { get; set; }
         public Board? Board { get; set; }
     }

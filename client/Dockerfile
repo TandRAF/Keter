@@ -1,9 +1,13 @@
 FROM node:20-alpine
+
 WORKDIR /app
+
 COPY package*.json ./
+
 RUN npm install
+
 COPY . .
-RUN npm run build
-# Folosim un server simplu pentru a servi build-ul
-RUN npm install -g serve
-CMD ["serve", "-s", "dist", "-l", "3000"]
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]

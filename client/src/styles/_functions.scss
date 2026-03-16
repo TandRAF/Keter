@@ -1,0 +1,11 @@
+/*
+#########################
+    SCSS FUNCTIONS
+#########################
+*/
+
+@function conv($min, $max, $key) {
+  $bg-width:map-get($breakpoints,$key);
+  $int : calc( ( $max / $bg-width ) * 100vw);
+  @return clamp($min, $int, $max);
+}

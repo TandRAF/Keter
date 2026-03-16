@@ -1,0 +1,36 @@
+@use '../../styles/index.scss' as *;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-weight: 600;
+
+  &.sm { padding: 0.5rem 0.5rem; font-size: 0.1rem; }
+  &.md { padding: 1rem 1.5rem; font-size: 1rem; }
+  &.lg { 
+    width: 100%;
+    padding: 0.75rem 1.5rem; font-size: 1.125rem; 
+  }
+
+  &.primary { background: $color-primary; color: white; }
+  &.secondary { background: $color-block; color: $color-tertiary; }
+  &.ghost { 
+    background: transparent; 
+    color: #333; 
+    padding: 0;
+    margin: 0;
+  }
+
+  .icon {
+    display: flex;
+  }
+
+  .text {
+    line-height: 1;
+  }
+}

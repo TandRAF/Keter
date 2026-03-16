@@ -1,0 +1,12 @@
+@use "../../../styles/index.scss" as *;
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    button{
+        margin-top: 2rem;
+    }
+    .errorMessage{
+        @include font-style(1rem, "Regular");
+    }
+}

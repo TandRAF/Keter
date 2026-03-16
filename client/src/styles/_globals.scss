@@ -1,0 +1,56 @@
+/*
+#########################
+  SCSS GLOBALS
+#########################
+*/
+@use 'variables' as *;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: $font-family-base;
+}
+ul,ol{
+  padding: 0;
+  li{
+    list-style: none;
+  }
+}
+body{
+    background-color: $color-bg;
+}
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+  color: $color-text;
+}
+h1{
+  font-size: 1rem * 3.5;
+}
+h2{
+  font-size: 1rem * 3;
+}
+h3{
+  font-size: 1rem * 2.5;
+}
+h4{
+  font-size: 1rem * 2;
+}
+h5{
+  font-size: 1rem * 1.5;
+}
+p{
+  padding: 0;
+  margin: 0;
+}
+.icon{
+    .primary{
+      fill: $icon-primary-color;
+    }
+    .secundary{
+      fill: $icon-secundary-color;
+    }
+    .dark{
+      fill: $icon-dark-color;
+    }
+}

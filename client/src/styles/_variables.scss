@@ -1,0 +1,57 @@
+/*
+#########################
+    SCSS VARIABLES
+#########################
+*/
+// Colors
+$color-primary: var(--color-primary);
+$color-primary-hover: var(--color-primary-hover);
+$color-secondary: var(--color-secondary);
+$color-secondary-hover: var(--color-secondary-hover);
+$color-tertiary: var(--color-tertiary);
+$color-bg:var(--color-bg);
+$color-block:var(--color-block);
+$color-card:var(--color-card);
+$color-bg-alt: #f9fafb;
+$color-card:var(--color-card);
+$color-border: var(--color-border);
+$color-text: #ECECEC;
+$color-text-muted: #6b7280;
+$color-status: var(--color-status);
+$color-gradient-block: var(--color-gradient-block);
+// Typography
+$font-family-base: "DM Sans", sans-serif;
+$font-size: 1rem;
+$borde-radius : 10px;
+$border-line: 0.5px solid $color-text;
+// Padding Space
+$padding-space: 1rem;
+$margin-space: 1rem;
+// Spacing
+$space: 0.25rem;
+// Border Radius
+$radius: 4px;
+// Window Break Points
+$breakpoints: (
+    "xs" : 480px,
+    "sm" : 768px,
+    "md" : 1024px,
+    "lg" : 1400px,
+    "xl" : 1920px,
+);  
+
+$icon-primary-color:#D6CAF7;
+$icon-secundary-color:#AD96EE;
+$icon-dark-color:#8461E5;
+// Font Weight 
+$font-weight-map: (
+    "ExtraLight" : 200,
+    "Light" : 300,
+    "Regular" : 400,
+    "Medium" : 500,
+    "SemiBold" : 600,
+    "Bold": 700,
+    "ExtraBold": 800,
+    "Black" : 900,
+    "Weight" : 1000,
+);

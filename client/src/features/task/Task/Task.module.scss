@@ -1,0 +1,81 @@
+@use "../../../styles/index.scss" as *;
+
+.task{
+    @include task-style;
+    padding: 2rem !important;
+    box-sizing: content-box;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow: hidden;
+    div{
+      padding: 0;
+    }
+    header{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .titleTags{
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        gap: 1rem;
+        .tags{
+          display: flex;
+          flex-direction: row;
+          gap: 0.25rem;
+          .tag{
+            height: 8px;
+            border-radius: $borde-radius;
+            &:nth-child(1){
+              background-color: $color-primary;
+              width: 50px;
+            }
+            &:nth-child(2){
+              background-color: $color-text;
+              width: 20px;
+            }
+          }
+        }
+      }
+      .icon{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: end;
+        box-sizing: border-box;
+        span{
+        @include font-style(0.8rem, "Medium");
+          border-radius: $borde-radius;
+          background-color: $color-status;
+          color: $color-bg;
+          padding: 0.3rem 0.7rem;
+          white-space: nowrap;
+        }
+        svg{
+            box-sizing: border-box;
+            width: 50px;
+            height: 50px;
+        }
+      }
+    }
+}
+
+.taskData{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    .status{
+        span{
+        box-sizing: border-box;
+        @include font-style(0.8rem, "Medium");
+          border-radius: $borde-radius;
+          background-color: $color-status;
+          color: $color-bg;
+          padding: 0.3rem 0.7rem;
+          white-space: nowrap;
+        }
+    }
+}

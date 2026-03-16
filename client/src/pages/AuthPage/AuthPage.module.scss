@@ -1,0 +1,28 @@
+@use "../../styles/index.scss" as *;
+
+.authPage{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 3.5rem;
+    h1{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap:0.5rem;
+        @include font-style(3.5rem, "Regular");
+        text-align: center;
+        span{
+            @include font-style(3.5rem, "Bold");
+            color: $color-secondary;
+        }
+        svg{
+            width: 3rem;
+            height: 3rem;
+        }
+    }
+}

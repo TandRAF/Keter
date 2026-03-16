@@ -1,0 +1,124 @@
+@use '../../../styles/index.scss' as *;
+.pageWrapper{
+  transition: all ease-out 0.5s;
+  opacity: 1;
+  &.hide{
+    opacity: 1;
+  }
+}
+.authContainer {
+  min-width: 1000px;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  box-sizing: border-box;
+  align-self: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  align-items: flex-start;
+  h3{
+    @include font-style(1.5rem, "Bold")
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: content-box;
+    gap: 1rem;
+     & > div{
+      background: $color-gradient-block;
+      border-radius: 8px;
+      display: flex;
+      padding: 0.6rem;
+      flex-direction: column;
+      gap: 1rem;
+       min-height: 50px;
+    }
+  }
+
+  .task {
+    @include task-style;
+    padding: 2rem !important;
+    box-sizing: content-box;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow: hidden;
+    div{
+      padding: 0;
+    }
+    header{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .titleTags{
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        gap: 1rem;
+        .tags{
+          display: flex;
+          flex-direction: row;
+          gap: 0.25rem;
+          .tag{
+            height: 8px;
+            border-radius: $borde-radius;
+            &:nth-child(1){
+              background-color: $color-primary;
+              width: 50px;
+            }
+            &:nth-child(2){
+              background-color: $color-text;
+              width: 20px;
+            }
+          }
+        }
+      }
+      .iconStatus{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: end;
+        span{
+          border-radius: $borde-radius;
+          background-color: $color-status;
+          color: $color-bg;
+          padding: 0.4rem 0.8rem;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  // Starea de bază: ascuns
+  .content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease-in-out, opacity 0.4s ease-in-out;
+    transition-delay: 0s; // Resetăm delay-ul implicit
+
+    button {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    &:not(.hide) {
+      max-height: 1000px; // Folosim o valoare mare în loc de fit-content
+      opacity: 1;
+      transition-delay: 1.5s; // Aici punem delay-ul de 1.5s să apară după mutare
+
+      button {
+        opacity: 1;
+        transition-delay: 1.7s; // Butonul apare puțin după text
+      }
+    }
+  }
+  .hide {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden;
+  }
+}

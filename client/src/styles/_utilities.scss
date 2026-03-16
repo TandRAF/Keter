@@ -1,0 +1,51 @@
+@use 'sass:math';
+@use 'sass:map';
+@use 'variables' as *;
+
+$utilities:(
+    display:(
+       "prefix":"d", 
+        "values":(
+            "f":flex,
+            "b":block,
+        )
+    ),
+    padding:(
+        "prefix":"p",
+        "values":(
+            "0":0,
+            "1": $padding-space,
+            "2": $padding-space*2,
+            "3": $padding-space*4,
+            "4": $padding-space*6,
+            "5": $padding-space*8,
+        )
+    ),
+    padding-left:(
+        "prefix":"pl",
+        "values":(
+            "0":0,
+            "1": $padding-space,
+            "2": $padding-space*2,
+            "3": $padding-space*4,
+            "4": $padding-space*6,
+            "5": $padding-space*8,
+        )
+    ),
+);
+// generate utilities Classes 
+@each $property,$map in $utilities{
+    $prefix:map.get($map, prefix);
+    $values:map.get($map, values);
+    @each $k, $v in $values{
+        @if($k == "default"){
+            .#{$prefix}{
+                #{$property}:$v;
+                }
+        } @else {
+            .#{$prefix}-#{$k}{
+                #{$property}:$v;
+            }
+        }
+    } 
+}

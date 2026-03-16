@@ -1,0 +1,64 @@
+/*
+#########################
+  SCSS MIXINS
+#########################
+*/
+@use 'variables' as *;
+@use "sass:map";
+// Breack Ponts Mixins for different Windows 
+@mixin min-max($min, $max){
+    min-width: $min;
+    max-width: $max;
+}
+@mixin xs {
+    @media (max-width:map-get($breakpoints, "xs")) {
+        @content;
+    }  
+}
+@mixin sm {
+    @media (max-width:map-get($breakpoints, "sm")) {
+        @content;
+    }  
+}
+@mixin md {
+    @media (max-width:map-get($breakpoints, "md")) {
+        @content;
+    }  
+}
+@mixin lg {
+    @media (max-width:map-get($breakpoints, "lg")) {
+        @content;
+    }  
+}
+@mixin xl {
+    @media (max-width:map-get($breakpoints, "xl")) {
+        @content;
+    }  
+}
+/// Font Style
+@mixin font-style($size,$width){
+    font-family: $font-family-base;
+    font-weight: map.get($map: $font-weight-map, $key: $width);
+    color: $color-text;
+    font-size: $size !important;
+}
+//// Task Design
+@mixin task-style{
+    padding: 1.5rem 1.25rem;
+    background-color: $color-card;
+    border-radius: $borde-radius;
+    border: solid 0.5px $color-border;
+    h1{
+       @include font-style(2rem,"Bold");
+       line-height: 100%;
+       text-align: left;
+    }
+    h2{
+        @include font-style(1.2rem,"Bold"); 
+        text-align: left;
+    }
+    p{
+        line-height: 150%;
+        @include font-style(1rem, "Light")
+    }
+}
