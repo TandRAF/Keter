@@ -23,7 +23,8 @@ $color-gradient-block: var(--color-gradient-block);
 $font-family-base: "DM Sans", sans-serif;
 $font-size: 1rem;
 $borde-radius : 10px;
-$border-line: 0.5px solid $color-text;
+$border-line: 0.5px solid $color-border;
+$border-dashed: 0.5px 10px dashed $color-border;
 // Padding Space
 $padding-space: 1rem;
 $margin-space: 1rem;

@@ -46,6 +46,20 @@ namespace server.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "role-user-id",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "role-admin-id",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -133,6 +147,33 @@ namespace server.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "user-admin-1",
+                            RoleId = "role-admin-id"
+                        },
+                        new
+                        {
+                            UserId = "user-member-1",
+                            RoleId = "role-user-id"
+                        },
+                        new
+                        {
+                            UserId = "user-member-2",
+                            RoleId = "role-user-id"
+                        },
+                        new
+                        {
+                            UserId = "user-member-3",
+                            RoleId = "role-user-id"
+                        },
+                        new
+                        {
+                            UserId = "user-member-4",
+                            RoleId = "role-user-id"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -152,6 +193,43 @@ namespace server.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ProjectMembers", b =>
+                {
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("ProjectId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ProjectMembers");
+
+                    b.HasData(
+                        new
+                        {
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            UserId = "user-member-1"
+                        },
+                        new
+                        {
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            UserId = "user-member-2"
+                        },
+                        new
+                        {
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            UserId = "user-member-3"
+                        },
+                        new
+                        {
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            UserId = "user-member-4"
+                        });
                 });
 
             modelBuilder.Entity("ProjectTaskTag", b =>
@@ -214,6 +292,9 @@ namespace server.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("ProfilePictureUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -240,15 +321,16 @@ namespace server.Migrations
                         {
                             Id = "user-admin-1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "266b0ca5-bc8f-4801-8127-4e55a74b573a",
+                            ConcurrencyStamp = "0d1f6211-2044-4790-aa0d-f503256231c4",
                             Email = "working@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "WORKING@KETER.RO",
                             NormalizedUserName = "WORKING_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFP3jl+a2B90QeNITqNc+I6sKLY4AoZg8PU3Gh9YuNpJj7OZAYGuthIXHmGJaTWbeQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL/QivkbteUpbjgqGInOwxdzXJ0SjYiry3leYaC2K7QAhpoGGO/Edf4SZzIsF4t96w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "18206443-e478-4391-bf9d-2d513265b3db",
+                            ProfilePictureUrl = "../avatars/WorkingRaccoon.png",
+                            SecurityStamp = "4cfb7286-d5ae-404c-b909-4f95c124ac93",
                             TwoFactorEnabled = false,
                             UserName = "working_raccoon"
                         },
@@ -256,15 +338,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0c6083cf-c99c-47da-8555-9ce339b841da",
+                            ConcurrencyStamp = "07edb8e6-dcd9-4d2d-8900-b77e17f2f0da",
                             Email = "money@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MONEY@KETER.RO",
                             NormalizedUserName = "MONEY_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAENmGd4zFirIqAt575N2ye24miisf/lCl2JWf6TT0wT8QOU5Iu7epRbQwJ1IGxLGxRQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKjZO8Rl4QRrtKFWPG3p8V0LzMGNPVYlZs+e2V/7FogobUex2n18gP+JP1YxWODuiA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4ae1db07-a152-47f6-ac48-ca4a8d3dfbef",
+                            ProfilePictureUrl = "../avatars/CardRaccoon.png",
+                            SecurityStamp = "008c66f9-d554-488e-b7b0-1adb9f9b278a",
                             TwoFactorEnabled = false,
                             UserName = "money_raccoon"
                         },
@@ -272,15 +355,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c4febbe3-683c-49f6-a3da-de0590fa4b54",
+                            ConcurrencyStamp = "7031d175-07eb-47b5-a650-a1d6ccd389c8",
                             Email = "cool@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "COOL@KETER.RO",
                             NormalizedUserName = "COOL_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEUgDxTmY6nR87aA7gOTi/cKcqq1oWUf67ymF16ZXYCuJTAHU8PIvrhgA1PXW3f3Qw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIOSaKR9SA9b9tgEydcRr1nPmq1azR0U4Zuu2XA5b4AXDr2/bxLgRjmB+jvrXd35CA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2e7a44ce-aaa6-482d-9c0a-68249e925a43",
+                            ProfilePictureUrl = "../avatars/coolRaccoon.png",
+                            SecurityStamp = "004f9091-6b3f-4998-9c7e-b52800589f07",
                             TwoFactorEnabled = false,
                             UserName = "cool_raccoon"
                         },
@@ -288,15 +372,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "daa76403-1231-4e0e-8a52-7cbf7f531ab8",
+                            ConcurrencyStamp = "6b89cd04-0233-4c26-9245-9b131453cf6b",
                             Email = "bath@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BATH@KETER.RO",
                             NormalizedUserName = "BATH_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKr1dInUQW9kuFgybcG+Wtb4Bs/KAP1a2I921atX3mi2KeC2Nnv4Jj/pq5mHz6bL/Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENaMsrSzFgnWrJVhQc/D1DJ5susod5odXSDbnnXZLfhFIFnbOZdlBx+EMSOCSv5owQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7aadf32c-27bb-4f09-b677-66ab763bc6bf",
+                            ProfilePictureUrl = "../avatars/BathRaccoon.png",
+                            SecurityStamp = "1e6840ba-52cc-46c0-a763-c4fa03258dfe",
                             TwoFactorEnabled = false,
                             UserName = "bath_raccoon"
                         },
@@ -304,15 +389,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6299ce2a-aa22-495b-b2ad-a5021f4e157d",
+                            ConcurrencyStamp = "aa1dbcac-1860-4489-8a48-37f1550dc211",
                             Email = "banana@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BANANA@KETER.RO",
                             NormalizedUserName = "BANANA_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFC7/OySRM4eF3ran984lRjHhzKAqmwa9u2YQJfbJ3r9tApqyPBc4tqSoiaDVkU/Fg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPRrdua/Nq9+jpKOUNZFjF2bDc26f8AvSxNdSyU+oQ06nNCxe5xhn2seL06eV2wioA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "75d17af1-6b78-405a-b509-0adca77103c1",
+                            ProfilePictureUrl = "../avatars/BananaRaccoon.png",
+                            SecurityStamp = "d4d89c4d-207a-41cb-b6ab-f794695413eb",
                             TwoFactorEnabled = false,
                             UserName = "banana_raccoon"
                         });
@@ -452,7 +538,7 @@ namespace server.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CreatedAt = new DateTime(2026, 3, 16, 9, 40, 3, 414, DateTimeKind.Utc).AddTicks(1290),
+                            CreatedAt = new DateTime(2026, 3, 20, 17, 42, 10, 146, DateTimeKind.Utc).AddTicks(730),
                             Description = "Proiect pentru facultate",
                             Name = "Platforma Keter",
                             OwnerId = "user-admin-1"
@@ -609,6 +695,21 @@ namespace server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
+                    b.HasOne("server.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjectMembers", b =>
+                {
+                    b.HasOne("server.Models.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("server.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")

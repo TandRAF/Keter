@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+// features/board/TaskModal/TaskModal.tsx
+import React, { useState } from 'react';
 import { type TaskT } from '../../../services/taskService';
 import styles from './TaskModal.module.scss';
-import { KeterProfile } from '../../../components/Icons/Icons'; 
 
 interface TaskModalProps {
   task: TaskT;
@@ -13,17 +13,9 @@ export const TaskModal: React.FC<TaskModalProps> = ({ task, onClose, onSave }) =
   const [editedTask, setEditedTask] = useState<TaskT>(task);
   const [editingField, setEditingField] = useState<'title' | 'description' | null>(null);
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
   const handleBlur = () => {
     setEditingField(null);
-    if (editedTask.title !== task.title || editedTask.description !== task.description) {
-      onSave(editedTask);
-    }
+    onSave(editedTask);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -33,40 +25,27 @@ export const TaskModal: React.FC<TaskModalProps> = ({ task, onClose, onSave }) =
   };
 
   return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.modalContent}>
-        
+    <div className={styles.taskDetails} onClick={onClose}>
+      <div className={styles.content} onClick={e => e.stopPropagation()}>
         <button className={styles.closeBtn} onClick={onClose}>&times;</button>
-        
-        <header className={styles.header}>
-          <div className={styles.icon}>
-            <KeterProfile />
-          </div>
-          
-          <div className={styles.titleSection}>
-            <p className={styles.statusLabel}>in column: <span>{task.status}</span></p>
-  
-            {editingField === 'title' ? (
-              <input 
-                type="text"
-                autoFocus
-                className={styles.editInput}
-                value={editedTask.title}
-                onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
-                onBlur={handleBlur}
-                onKeyDown={handleKeyDown}
-              />
-            ) : (
-              <h2 onDoubleClick={() => setEditingField('title')}>
-                {editedTask.title}
-              </h2>
-            )}
-          </div>
-        </header>
+        {editingField === 'title' ? (
+          <input 
+            type="text"
+            autoFocus
+            className={styles.editInput}
+            value={editedTask.title}
+            onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+          />
+        ) : (
+          <p onDoubleClick={() => setEditingField('title')}>
+            {editedTask.title}
+          </p>
+        )}
 
         <div className={styles.body}>
-          <h3>Description</h3>
-          
+          <span>Description</span>
           {editingField === 'description' ? (
             <textarea
               autoFocus
@@ -89,7 +68,6 @@ export const TaskModal: React.FC<TaskModalProps> = ({ task, onClose, onSave }) =
             </div>
           )}
         </div>
-
       </div>
     </div>
   );

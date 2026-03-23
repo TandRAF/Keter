@@ -9,4 +9,10 @@
     .errorMessage{
         @include font-style(1rem, "Regular");
     }
+    .changeAuth{
+            @include font-style(1rem,"Regular");
+            a{
+                color:$color-primary;
+            }
+        }
 }

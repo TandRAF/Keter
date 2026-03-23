@@ -1,0 +1,6 @@
+@use "../../styles/index.scss" as *;
+.additionalNav{
+    display: flex;
+    flex-direction: column;
+    border-right:$border-line;
+}

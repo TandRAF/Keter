@@ -10,8 +10,6 @@ namespace server.Dtos.BoardDto
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public Guid ProjectId { get; set; }
-        
-        // Trimitem întreg board-ul cu tot cu coloane spre React
         public List<ColumnReadDto> Columns { get; set; } = new();
     }
 }

@@ -1,0 +1,111 @@
+@use "../../styles/index.scss" as *;
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    h1{
+        @include font-style(1.5rem,"Bold");
+    }
+}
+.projectCard{
+    .own{
+        @include font-style(.8rem,"Bold");
+        width: fit-content;
+        border-radius: $borde-radius;
+        background-color: $color-secondary;
+        padding: 0.25rem 0.5rem;
+        color: $color-card;
+    }
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    h3{
+        @include font-style(1.5rem,"Bold");
+    }
+    padding: 20px;
+    background-color: $color-block;
+    border-radius: $borde-radius;
+    border: $border-line;
+    p{
+        @include font-style(1rem,"Regular");
+    }
+    strong{
+        @include font-style(1rem,"Bold");
+    }
+   .membersIcons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  > img {
+    width: 35px;
+    height: 35px;
+    box-sizing: border-box; 
+  }
+  > img + img {
+
+    margin-left: -1.5rem; 
+  }
+}
+.viewLink{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: $color-primary;
+    padding: 0.5rem;
+    text-align: center;
+    @include font-style(0.8rem,"Bold");
+    text-decoration: none;
+    border-radius: $borde-radius;
+    transition: all 0.5s ease-out;
+    &:hover{
+        background-color: $color-primary-hover;
+    }
+}
+}
+
+.CreatepProjectCard{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 20px;
+    background-color: $color-block;
+    border-radius: $borde-radius;
+    border: $border-line;
+    h3{
+        @include font-style(1.5rem,"Regular");
+    }
+    &.notSelected{
+        cursor: pointer;
+        justify-content: center;
+        align-items: center;
+        background-color: $color-bg;
+        border: none;
+        background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%234D4E52' stroke-width='1' stroke-dasharray='15%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        h3{
+            padding: 2rem;
+            text-align: center;
+            color: $color-border;
+        }
+    }
+}
+ .createForm{
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+        input, textarea{
+            border-radius: none;
+            padding: 0;
+            stroke: none;
+            border: none;
+            @include font-style(1rem,"Regular");
+        }
+        input:nth-child(1){
+            @include font-style(1.5rem,"Regular"); 
+        }
+        textarea{
+            background-color: $color-block;
+            stroke: none!important;
+            resize: none;
+            border: none!important;
+            outline: none!important;
+        }
+    }

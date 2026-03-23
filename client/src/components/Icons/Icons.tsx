@@ -21,6 +21,11 @@ import ShowPasswordIcon from '../../assets/icons/showPassword.svg?react'
 import HidePasswordIcon from '../../assets/icons/hidePassword.svg?react'
 import KeterProfileIcon from '../../assets/profile-icons/keterProfile.svg?react'
 import SparkIcon from '../../assets/icons/spark.svg?react'
+import NavHomeIcon from '../../assets/nav-icons/navHome.svg?react'
+import NavTasksIcon from '../../assets/nav-icons/navTasks.svg?react'
+import NavProjectsIcon from '../../assets/nav-icons/projectsNav.svg?react'
+import NavNotificationIcon from '../../assets/nav-icons/navNotification.svg?react'
+
 
 // Type
 export type IconProps = React.SVGProps<SVGSVGElement> & {
@@ -50,6 +55,10 @@ export const HidePassword = (props: IconProps) => <HidePasswordIcon className='i
 export const Calendar = (props: IconProps) => < CalendarIcon className="icon" {...props}/>
 export const KeterProfile = (props:IconProps) => <KeterProfileIcon className="icon" {...props}/>
 export const Spark = (props:IconProps) => <SparkIcon className="icon"{...props}/>
+export const NavHome = (props:IconProps) => <NavHomeIcon className='icon'{...props}/>
+export const NavTasks = (props:IconProps) => <NavTasksIcon className='icon'{...props}/>
+export const NavProjects = (props:IconProps) => <NavProjectsIcon className='icon' {...props}/>
+export const NavNotification = (props:IconProps) => <NavNotificationIcon className='icom'{...props}/>
 
 // IconPack object
 export const IconPack = {
@@ -72,7 +81,11 @@ export const IconPack = {
   Users,
   Calendar,
   ProfileIcon,
-  Spark
+  Spark,
+  NavHome,
+  NavTasks,
+  NavProjects,
+  NavNotification
 };
 
 // Type

@@ -4,15 +4,18 @@ using server.Models;
 using server.Dtos;
 using server.Interfaces;
 using server.Dtos.ProjectDto;
+using Microsoft.AspNetCore.Identity;
 
 public class ProjectService : IProjectService
 {
     private readonly IProjectRepository _repo;
     private readonly IMapper _mapper;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public ProjectService(IProjectRepository repo, IMapper mapper)
+    public ProjectService(IProjectRepository repo, IMapper mapper,UserManager<ApplicationUser> userManager)
     {
         _repo = repo;
+        _userManager = userManager;
         _mapper = mapper;
     }
 
@@ -36,7 +39,7 @@ public class ProjectService : IProjectService
         return _mapper.Map<ProjectReadDto>(entityModel);
     }
 
-    public async Task<bool> UpdateEntityAsync(Guid id, ProjectUpdateDto updateDto,string userId)
+   public async Task<bool> UpdateEntityAsync(Guid id, ProjectUpdateDto updateDto, string userId)
     {
         var existingEntity = await _repo.GetByIdAsync(id);
         if (existingEntity == null || existingEntity.OwnerId != userId) 
@@ -44,7 +47,8 @@ public class ProjectService : IProjectService
             return false;
         }
         
-        _mapper.Map(updateDto, existingEntity);
+        existingEntity.Name = updateDto.Name;
+        existingEntity.Description = updateDto.Description;
         await _repo.UpdateAsync(existingEntity);
         return true;
     }
@@ -60,4 +64,28 @@ public class ProjectService : IProjectService
         await _repo.DeleteAsync(entity);
         return true;
     }
+   public async Task<bool> AddMemberAsync(Guid projectId, string username, string requesterId)
+    {
+        var project = await _repo.GetByIdAsync(projectId);
+        if (project == null || project.OwnerId != requesterId) return false;
+
+        var userToAdd = await _userManager.FindByNameAsync(username);
+        
+        if (userToAdd == null || project.Members.Any(m => m.Id == userToAdd.Id)) return false; 
+
+        project.Members.Add(userToAdd);
+        return await _repo.SaveChangesAsync(); 
+    }
+
+    public async Task<bool> RemoveMemberAsync(Guid projectId, string memberId, string requesterId)
+    {
+        var project = await _repo.GetByIdAsync(projectId);
+        if (project == null) return false;
+        if (project.OwnerId != requesterId && memberId != requesterId) return false;
+        var memberToRemove = project.Members.FirstOrDefault(m => m.Id == memberId);
+        if (memberToRemove == null) return false;
+        project.Members.Remove(memberToRemove);
+        return await _repo.SaveChangesAsync();
+}
+    
 }

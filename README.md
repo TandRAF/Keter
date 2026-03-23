@@ -1,7 +1,7 @@
 # Keter - Smart Task Management System
 
 **Keter** is a robust task and project management platform designed to streamline team collaboration through Role-Based Access Control (RBAC) and real-time progress monitoring. 
-
+![main img](./assets/main-img.jpg)
 ## Technologies
 
 ### Backend

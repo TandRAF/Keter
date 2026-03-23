@@ -1,4 +1,5 @@
 import { Button } from '../../../components/Button/Button';
+import { AvatarSelector } from '../AvatarSelector/AvatarSelector';
 import { LoginForm } from '../LoginForm/LoginForm';
 import { RegisterForm } from '../RegisterForm/RegisterForm';
 
@@ -34,5 +35,14 @@ export const AuthTask: React.FC<TaskCardProps> = ({ task, onFinish, type }) => {
             onFinish={onFinish}
             />
          )
+    }else if(type == "avatarSelector"){
+        return(
+            <>
+            <AvatarSelector
+            task={task} 
+            onFinish={onFinish}
+            />
+            </>
+        )
     }
 };

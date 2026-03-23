@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Am șters useNavigate
+import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/authContext";
 import { authService } from "../../../services/authService";
 import InputData from "../../../components/InputData/InputData";
@@ -43,17 +43,29 @@ export const RegisterForm: React.FC<TaskCardProps> = ({ task, onFinish}) => {
         formData.email,
         formData.password
       );
-      const userEmail = response?.user?.email || formData.email; 
+      
+      // Extract the token and the full user object
       const token = response?.token;
+      const userData = response?.user;
 
-      if (token) {
-        login(userEmail, token);
+      if (token && userData) {
+        // Pass the FULL user object to your Context
+        login({
+          id: userData.id,
+          email: userData.email,
+          userName: userData.userName,
+          profilePictureUrl: userData.profilePictureUrl
+        }, token);
+        
+        onFinish(task.id);
+      } else {
+        setError("Registration succeeded, but failed to automatically log in.");
       }
-      onFinish(task.id);
       
     } catch (err: any) {
       console.error("Eroare la înregistrare:", err);
-      setError("Registration failed.");
+      const errorMessage = err.response?.data?.message || "Registration failed.";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -96,7 +108,7 @@ export const RegisterForm: React.FC<TaskCardProps> = ({ task, onFinish}) => {
       <Button size="lg" type="submit" disabled={isLoading}>
         {isLoading ? "Creating Account..." : "Sign Up"}
       </Button>
-      <div style={{ marginTop: "1rem", textAlign: "center", fontSize: "0.9rem" }}>
+      <div className={styles.changeAuth}>
         Already have an account? <Link to="/login">Log in here</Link>
         {error && <div className={styles.errorMessage}>{error}</div>}
       </div>

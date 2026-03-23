@@ -16,32 +16,34 @@ public class ProjectController : ControllerBase
     {
         _service = service;
     }
-
-    [Authorize(Roles = "Admin, User")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ProjectReadDto>>> GetAll() {
-        var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+       var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
         if (userId == null) return Unauthorized();
         var entities = await _service.GetAllEntitiesAsync(userId);
         return Ok(entities);
     }
-    [Authorize(Roles = "Admin, User")]
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<ProjectReadDto>> GetById(Guid id)
     {
         var entity = await _service.GetEntityByIdAsync(id);
-        if (entity == null) return NotFound(); // Response 404
-        return Ok(entity); // Response 200
+        if (entity == null) return NotFound();
+        return Ok(entity);
     }
-    [Authorize(Roles = "Admin, User")]
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<ProjectReadDto>> Create([FromBody] ProjectCreateDto entityCreateDto)
     {
+        var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value 
+                 ?? User.FindFirst("sub")?.Value;
+
+        if (userId == null) return Unauthorized();
+        entityCreateDto.OwnerId = userId;
         var result = await _service.CreateEntityAsync(entityCreateDto);
-        // Returnăm 201 Created și locația noii resurse
         return CreatedAtAction(nameof(GetById), new { id = result.Id }, result); 
     }
-    [Authorize(Roles = "Admin, User")]
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] ProjectUpdateDto updateEntity)
     {
@@ -51,7 +53,7 @@ public class ProjectController : ControllerBase
     
         return result ? NoContent() : NotFound();
     }
-    [Authorize(Roles = "Admin, User")]
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
@@ -59,5 +61,35 @@ public class ProjectController : ControllerBase
         if (userId == null) return Unauthorized();
         var result = await _service.DeleteEntityAsync(id, userId);
         return result ? NoContent() : NotFound();
+    }
+    [Authorize]
+    [HttpPost("{id}/members")]
+    public async Task<IActionResult> AddMember(Guid id, [FromBody] AddMemberDto dto)
+    {
+        var requesterId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        Console.WriteLine($"Request for Project: {id}");
+        Console.WriteLine($"Logged in User (Requester): {requesterId}");
+        if (requesterId == null) return Unauthorized();
+
+        var success = await _service.AddMemberAsync(id, dto.Username, requesterId);
+    
+        if (!success) return BadRequest(new { Message = "Could not add member. User not found or permission denied." });
+    
+        return Ok();
+    }
+
+    [Authorize]
+    [HttpDelete("{id}/members/{memberId}")]
+    public async Task<IActionResult> RemoveMember(Guid id, string memberId)
+    {
+        
+        var requesterId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (requesterId == null) return Unauthorized();
+
+        var success = await _service.RemoveMemberAsync(id, memberId, requesterId);
+    
+        if (!success) return BadRequest(new { Message = "Could not remove member." });
+
+        return NoContent();
     }
 }

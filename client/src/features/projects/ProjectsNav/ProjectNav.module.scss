@@ -1,0 +1,48 @@
+@use "../../../styles/index.scss" as *;
+.navContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    h3{
+        padding: 0.5rem;
+        @include font-style(1.2rem, "Bold");
+    }
+    .projectList{
+        margin: 0;
+        padding: 0;
+        .projectHeader{
+            display: flex;
+            flex-direction: row;
+            gap: 0.2rem;
+            div{
+                white-space: nowrap;
+                @include font-style(1rem, "Regular");
+            }
+        }
+    }
+    .boardList{
+        li{     
+                border-left:$border-line;
+                margin-left: 0.1rem;
+                display: flex;
+                padding: 0.2rem 0;
+                flex-direction: row;
+                gap: .2rem;
+                white-space: nowrap;
+                svg{
+                    transform: translateX(-0.5px);
+                }
+                span{
+                    margin-left: auto;
+                    padding-left: 0.5rem;
+                   @include font-style(1rem, "Regular"); 
+                }
+            }
+    }
+    a{
+        @include font-style(1rem, "Regular");
+        font-style: normal;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+}

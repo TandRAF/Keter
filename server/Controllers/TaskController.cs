@@ -17,13 +17,23 @@ namespace server.Controllers
         }
 
         [HttpPut("{id}/move")]
-        public async Task<IActionResult> MoveTask(Guid id, [FromBody] MoveTaskDto moveDto)
-        {
-            var success = await _taskService.UpdateTaskPositionAsync(id, moveDto.NewColumnId, moveDto.NewOrder);
-            
-            if (!success) return NotFound("Task not found.");
+public async Task<IActionResult> MoveTask(Guid id, [FromBody] MoveTaskDto moveDto)
+{
+    try 
+    {
+        if (moveDto == null) return BadRequest("Invalid move data.");
 
-            return NoContent(); // 204 No Content este standardul pentru un update cu succes care nu returnează date
-        }
+        var success = await _taskService.UpdateTaskPositionAsync(id, moveDto.NewColumnId, moveDto.NewOrder);
+        
+        if (!success) return NotFound("Task or Column not found.");
+
+        return NoContent(); 
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error moving task: {ex.Message}");
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
     }
 }

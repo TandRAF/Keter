@@ -13,5 +13,7 @@ namespace server.Interfaces
         Task<ProjectReadDto> CreateEntityAsync(ProjectCreateDto entityCreateDto);
         Task<bool> UpdateEntityAsync(Guid id, ProjectUpdateDto updateDto,string userId);
         Task<bool> DeleteEntityAsync(Guid id,string userId);
+        Task<bool> AddMemberAsync(Guid projectId, string username, string requesterId);
+        Task<bool> RemoveMemberAsync(Guid projectId, string memberId, string requesterId);
     }
 }

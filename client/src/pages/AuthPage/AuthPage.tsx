@@ -4,7 +4,7 @@ import { AuthBoard } from '../../features/auth/AuthContainer/AuthContainer'
 import { Spark } from '../../components/Icons/Icons'
 
 interface AuthPageProps {
-  type: 'login' | 'register'; // Folosim un union type pentru siguranta
+  type: 'login' | 'register'; 
 }
 
 interface Task {
@@ -38,7 +38,7 @@ const registerColumns:Column[] = [
           type: "text"
         },
         { id: 't2', title: 'Create The Account', content: <></>, status: 'col-1', type: "register" },
-        { id: 't3', title: 'Make your Workspace', content: <p>Install Vite and Framer Motion.</p>, status: 'col-1', type: "text" },
+        { id: 't3', title: 'Choose The Profile Pictures', content: <></>, status: 'col-1', type: "avatarSelector" },
       ] 
     },
     { id: 'col-2', title: 'In Progress', tasks: [] },

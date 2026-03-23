@@ -1,0 +1,25 @@
+@use "../../../styles/variables" as *;
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    box-sizing: border-box;
+    .avatarGrid{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        .avatarOption{
+            padding: 0.25rem;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            &.selected{
+                background-color: $color-primary;
+            }
+            &:hover{
+                background-color: $color-primary;
+            }
+        }
+    }
+}

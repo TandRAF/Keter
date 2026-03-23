@@ -12,9 +12,10 @@ namespace server.Models
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    // LEGĂTURA: Cine a creat proiectul?
-        public string OwnerId { get; set; } = string.Empty;
+         public string OwnerId { get; set; } = string.Empty;
         public ApplicationUser? Owner { get; set; }
+
+        public List<ApplicationUser> Members { get; set; } = new();
 
         public List<Board> Boards { get; set; } = new();
     }

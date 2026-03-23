@@ -21,29 +21,35 @@ export const LoginForm: React.FC<LoginFormProps> = ({ task, onFinish }) => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setError("");
-  setIsLoading(true);
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
 
-  try {
-  const response = await authService.login(formData.username, formData.password);
-  const token = typeof response === 'string' ? response : response.token;
-  const email = response.user?.email || formData.username;
+    try {
+      const response = await authService.login(formData.username, formData.password);
+      const token = response?.token;
+      const userData = response?.user;
 
-  if (token) {
-    login(email, token); 
-    onFinish(task.id);
-  } else {
-    setError("Token not found in server response.");
-  }
-} catch (err: any) {
-    console.error("DEBUG LOGIN:", err);
-    const errorMessage = err.response?.data?.message || "Eroare de conexiune sau format date invalid.";
-    setError(errorMessage);
-  } finally {
-    setIsLoading(false);
-  }
-};
+      if (token && userData) {
+        login({
+          id: userData.id,
+          email: userData.email,
+          userName: userData.userName,
+          profilePictureUrl: userData.profilePictureUrl
+        }, token); 
+        
+        onFinish(task.id);
+      } else {
+        setError("Token or user data not found in server response.");
+      }
+    } catch (err: any) {
+      console.error("DEBUG LOGIN:", err);
+      const errorMessage = err.response?.data?.message || "Eroare de conexiune sau format date invalid.";
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>

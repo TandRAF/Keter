@@ -80,7 +80,7 @@ useEffect(() => {
                   <motion.div
                     className={style.task}
                     key={task.id}
-                    layoutId={task.id} // Esențial pentru animația între coloane
+                    layoutId={task.id}
                     layout="position"
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   >

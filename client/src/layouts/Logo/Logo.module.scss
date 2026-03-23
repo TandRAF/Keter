@@ -1,0 +1,10 @@
+@use "../../styles/index.scss" as *;
+.container{
+    height: 3.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-bottom:$border-line ;
+}

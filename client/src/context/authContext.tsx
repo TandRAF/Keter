@@ -1,22 +1,29 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 
+export interface AuthUser {
+  id: string;
+  email: string;
+  userName?: string; 
+  profilePictureUrl?: string; 
+}
+
 interface AuthContextType {
   isAuthenticated: boolean;
-  user: { email: string } | null;
-  login: (email: string, token: string) => void;
+  user: AuthUser | null;
+  login: (userData: AuthUser, token: string) => void;
   logout: () => void;
+  updateUser: (updates: Partial<AuthUser>) => void; 
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<{ email: string } | null>(() => {
+  const [user, setUser] = useState<AuthUser | null>(() => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const login = (email: string, token: string) => {
-    const userData = { email };
+  const login = (userData: AuthUser, token: string) => {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
     localStorage.setItem("token", token);
@@ -28,13 +35,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("token");
   };
 
+  const updateUser = (updates: Partial<AuthUser>) => {
+    setUser((prevUser) => {
+      if (!prevUser) return null; 
+      const updatedUser = { ...prevUser, ...updates };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      return updatedUser;
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

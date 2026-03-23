@@ -1,56 +1,33 @@
+using AutoMapper;
 using server.Dtos.BoardDto;
-using server.Dtos.ColumnDto;
-using server.Dtos.TaskDto;
-using server.Dtos.TagDto;
-using server.Repositories;
 using server.Interfaces;
+using server.Models;
 
 namespace server.Services
 {
-
     public class BoardService : IBoardService
     {
-        private readonly IBoardRepository _boardRepo;
+        private readonly IBoardRepository _repo;
+        private readonly IMapper _mapper;
 
-        public BoardService(IBoardRepository boardRepo)
+        public BoardService(IBoardRepository repo, IMapper mapper)
         {
-            _boardRepo = boardRepo;
+            _repo = repo;
+            _mapper = mapper;
         }
 
-        public async Task<BoardReadDto?> GetBoardDataAsync(Guid boardId)
+        public async Task<IEnumerable<BoardReadDto>> GetBoardsByProjectAsync(Guid projectId)
         {
-            var board = await _boardRepo.GetBoardWithDetailsAsync(boardId);
-            if (board == null) return null;
+            var boards = await _repo.GetAllByProjectIdAsync(projectId);
+            return _mapper.Map<IEnumerable<BoardReadDto>>(boards);
+        }
 
-            // Mapare manuală (dacă nu folosești AutoMapper)
-            return new BoardReadDto
-            {
-                Id = board.Id,
-                Name = board.Name,
-                ProjectId = board.ProjectId,
-                Columns = board.Columns.Select(c => new ColumnReadDto
-                {
-                    Id = c.Id,
-                    Title = c.Title,
-                    Order = c.Order,
-                    Tasks = c.Tasks.Select(t => new TaskReadDto
-                    {
-                        Id = t.Id,
-                        Title = t.Title,
-                        Description = t.Description,
-                        ColumnId = t.ColumnId,
-                        Order = t.Order,
-                        Status = c.Title, // Aici setăm Status-ul cu numele coloanei!
-                        AssignedUserId = t.AssignedUserId,
-                        Tags = t.Tags.Select(tag => new TagReadDto
-                        {
-                            Id = tag.Id,
-                            Name = tag.Name,
-                            ColorHex = tag.ColorHex
-                        }).ToList()
-                    }).ToList()
-                }).ToList()
-            };
+        public async Task<BoardReadDto?> GetBoardByIdAsync(Guid id)
+        {
+            var board = await _repo.GetByIdAsync(id);
+            if (board == null) return null;
+            
+            return _mapper.Map<BoardReadDto>(board);
         }
     }
 }

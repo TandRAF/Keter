@@ -1,12 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using server.Models;
 
 namespace server.Interfaces
 {
     public interface ITaskRepository
     {
-        Task<bool> MoveTaskAsync(Guid taskId, Guid newColumnId, int newOrder);
+        Task<ProjectTask?> GetByIdAsync(Guid id);
+        Task<bool> UpdateTaskPositionAsync(Guid taskId, Guid newColumnId, int newOrder);
+        Task<bool> SaveChangesAsync(); 
     }
 }

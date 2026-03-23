@@ -1,4 +1,6 @@
 using System.Text;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt; 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,20 +11,25 @@ using server.Interfaces;
 using server.Services;
 using server.Repositories;
 
-var builder = WebApplication.CreateBuilder(args);
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact",
-        policy => policy.SetIsOriginAllowed(origin => true)
+        policy => policy.WithOrigins(
+                        "http://localhost:5173", 
+                        "http://127.0.0.1:5173",
+                        "http://localhost:8080",
+                        "http://127.0.0.1:8080"
+                        )
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()); 
 });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -31,70 +38,68 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]!);
 
-builder.Services.AddAuthentication(options =>
-{
+builder.Services.AddAuthentication(options => {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-.AddJwtBearer(options =>
-{
+.AddJwtBearer(options => {
     options.RequireHttpsMetadata = false; 
     options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
+    options.TokenValidationParameters = new TokenValidationParameters {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtSettings["Issuer"],
         ValidAudience = jwtSettings["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(key)
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        NameClaimType = "name", 
+        RoleClaimType = "role"
+    };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnTokenValidated = async context =>
+        {
+            var userManager = context.HttpContext.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+            var userId = context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            if (userId != null)
+            {
+                var user = await userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    // Forces a 401 Unauthorized if the user was deleted
+                    context.Fail("User no longer exists in the database.");
+                }
+            }
+        }
     };
 });
-//Services
+
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IProjectService,ProjectService>();
-builder.Services.AddScoped<IBoardService, BoardService>();
-builder.Services.AddScoped<ITaskService, TaskService>();
-//Repository
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IBoardService, BoardService>();
 builder.Services.AddScoped<IBoardRepository, BoardRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ITaskService, TaskService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers()
-    .AddNewtonsoftJson(options =>
-    {
+    .AddNewtonsoftJson(options => {
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-        options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
-    });;
+    });
+    
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    // Swagger
-}
-
 app.UseRouting();
-app.Use(async (context, next) =>
-{
-    if (context.Request.Method == "OPTIONS")
-    {
-        context.Response.Headers.Append("Access-Control-Allow-Origin", context.Request.Headers["Origin"]);
-        context.Response.Headers.Append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        context.Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        context.Response.Headers.Append("Access-Control-Allow-Credentials", "true");
-        context.Response.StatusCode = 200;
-        await context.Response.CompleteAsync();
-        return;
-    }
-    await next();
-});
 app.UseCors("AllowReact");
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); 
+app.UseAuthorization(); 
 
 app.MapControllers();
 
@@ -104,49 +109,12 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
-        
         context.Database.Migrate(); 
-        Console.WriteLine("Database migrated successfully!");
-
-        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-
-        string[] roles = { "Admin", "User" };
-        foreach (var role in roles)
-        {
-            if (!await roleManager.RoleExistsAsync(role))
-            {
-                await roleManager.CreateAsync(new IdentityRole(role));
-                Console.WriteLine($"Role {role} created.");
-            }
-        }
-
-        var adminEmail = "admin@keter.com";
-        var adminUser = await userManager.FindByEmailAsync(adminEmail);
-
-        if (adminUser == null)
-        {
-            var newAdmin = new ApplicationUser
-            {
-                UserName = "admin",
-                Email = adminEmail,
-                EmailConfirmed = true
-            };
-
-            var result = await userManager.CreateAsync(newAdmin, "AdminKeter2026!");
-
-            if (result.Succeeded)
-            {
-                await userManager.AddToRoleAsync(newAdmin, "Admin");
-                Console.WriteLine("Admin account created and role assigned!");
-            }
-        }
-        
-        Console.WriteLine("Seed completed with raccoons and roles successfully!");
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"An error occurred while migrating or seeding: {ex.Message}");
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "A apărut o eroare în timpul migrării bazei de date.");
     }
 }
 

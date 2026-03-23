@@ -8,6 +8,8 @@ namespace server.Interfaces
 {
     public interface IBoardService
     {
-        Task<BoardReadDto?> GetBoardDataAsync(Guid boardId);
+        Task<IEnumerable<BoardReadDto>> GetBoardsByProjectAsync(Guid projectId);
+        Task<BoardReadDto?> GetBoardByIdAsync(Guid id);
+        
     }
 }

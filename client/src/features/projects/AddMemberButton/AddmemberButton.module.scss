@@ -1,0 +1,33 @@
+
+@use './../../../styles/index.scss' as *;
+.container{
+    button{
+        background-color: $color-secondary;
+        @include font-style(0.8rem,"SemiBold");
+        color:$color-primary;
+        display: flex;
+        border: none;
+        stroke: none;
+        gap: 0.5rem;
+        padding: 0.4rem 0.6rem;
+        border-radius: $borde-radius;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.searchContainer{
+    background-color: $color-block;
+    padding: 0.5rem;
+    border: $border-line;
+    border-radius: $borde-radius;
+    ul{
+        li{
+            padding: 0.5rem 1rem;
+            @include font-style(1rem, "Light");
+            border-radius: $borde-radius;
+            &:hover{
+                background-color: $color-border;
+            }
+        }
+    }
+}

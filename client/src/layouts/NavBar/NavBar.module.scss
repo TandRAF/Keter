@@ -1,0 +1,44 @@
+@use "../../styles/index.scss" as *;
+.header{
+    height: 100vh;
+    box-sizing: border-box;
+    .navBar{
+        display: flex;
+        padding: 1.4rem;
+        height: 100vh;
+        background-color: $color-block;
+        flex-direction: column;
+        box-sizing: border-box;
+        justify-content: space-between;
+        border-right: $border-line;
+        .navLinks{
+            display: flex;
+            flex-direction: column;
+            a{
+                padding: 1rem;
+                border-radius: $borde-radius;
+                width: fit-content;
+                &.active{
+                    background-color: $color-primary;
+                }
+            }
+        }
+        .userMenu{
+             display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            img{
+                width: 50px;
+                height: 50px;
+            }
+            .dropdownMenu{
+            display: flex;
+            background-color: $color-block;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+        }
+    }
+}

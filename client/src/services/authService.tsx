@@ -3,8 +3,10 @@ import { api } from "./api";
 interface LoginResponse {
   token: string;
   user: {
-    email: string;
     id: string;
+    email: string;
+    userName?: string;         
+    profilePictureUrl?: string; 
   };
 }
 

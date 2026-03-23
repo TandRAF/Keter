@@ -9,11 +9,9 @@ namespace server.Models
     public class ApplicationUser:IdentityUser
     {
         public string? FullName { get; set; }
-
-        // Proiectele pe care le-a creat (Admin)
+        public string? ProfilePictureUrl { get; set; }
         public List<Project> OwnedProjects { get; set; } = new();
-
-        // Task-urile la care este asignat (Member)
         public List<ProjectTask> AssignedTasks { get; set; } = new();
+        public List<Project> MemberOfProjects { get; set; } = new();
     }
 }

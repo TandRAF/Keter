@@ -7,8 +7,8 @@ type ButtonSize = "sm" | "md" | "lg";
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  icon?: ReactNode; // optional icon
-  children?: ReactNode; // optional text
+  icon?: ReactNode;
+  children?: ReactNode;
   iconPosition?: "left" | "right";
 };
 
