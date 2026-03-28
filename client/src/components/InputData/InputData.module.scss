@@ -10,7 +10,6 @@ input {
     outline: none;
     font-size: 1rem;
     padding: 0.650 * 1rem 1rem;
-    border-radius: $borde-radius;
     border: none;
     &:-webkit-autofill,
     &:-webkit-autofill:hover, 
@@ -218,4 +217,106 @@ input {
             }
         }
     }
+}
+.userSelectForm{
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+    align-items: center;
+    @include font-style(1rem, "Regular");
+    label{
+        @include font-style(1rem, "Regular");
+    }
+    .assignedBlock{
+        span{
+            @include font-style(1rem, "Regular");
+            padding:.25rem 0.5rem;
+            background-color: $color-column;
+            border-radius: $borde-radius;
+        }
+    }
+    button{
+        background-color: transparent;
+        @include font-style(1rem, "Regular");
+        padding: .5rem;
+        border: none;
+        stroke: none;
+    }
+    .dropdown__menu{
+        position: absolute;
+        z-index: 10;
+        background-color: $color-bg;
+        padding: 0.5rem;
+    }
+}
+.calendarFrom{
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+    height: fit-content;
+    border-radius: $borde-radius;
+    .calendarPopup{
+        background-color: $color-bg;
+        margin-top: 1.5rem;
+        position: absolute;
+        .header{
+            color: $color-bg;
+            border-radius: $borde-radius;
+            background-color: $color-primary;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding: .5rem;
+            gap: .5rem;
+            align-items: center;
+            span{
+                @include font-style(1rem, "Regular");
+                text-align:center;
+            }
+            button{
+                cursor: pointer;
+                border: none;
+                outline: none;
+                color: $color-text;
+                padding: .5rem 1rem;
+                background-color: transparent;
+                transition: all 0.5s ease-out;
+                border-radius: $borde-radius;
+                &:hover{
+                    background-color: $color-primary-hover;
+                }
+            }
+        }
+        padding: .5rem;
+        .weekdays{
+            display: grid;
+            margin-top: 0.5rem;
+            grid-template-columns: repeat(7, 1fr);
+            padding: .5rem;
+            background-color: $color-secondary;
+            border-radius: $borde-radius;
+        }
+        .days{
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            .day{
+                @include font-style(1rem,"Regular");
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                justify-content: center;
+                align-items: center;
+                padding: .25rem;
+                cursor: pointer;
+                border-radius: $borde-radius;
+                &:hover{
+                    background-color: $color-border;
+                }
+            }
+        }
+    }
+}
+.text{
+    border-radius: $borde-radius;
 }

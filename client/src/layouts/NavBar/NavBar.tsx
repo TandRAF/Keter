@@ -13,7 +13,7 @@ export const NavBar = () => {
   const hideNavbarPaths = ["/login", "/wellcome", "/register"];
   
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  console.log(user);
+  console.log(user?.profilePictureUrl);
   const handleLogout = () => {
     logout();
     navigate("/login");

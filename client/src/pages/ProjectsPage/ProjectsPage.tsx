@@ -4,6 +4,7 @@ import { projectService, type Project } from '../../services/projectService';
 import { userService } from '../../services/userService'; // Needed for the Create Card search
 import { AddMemberButton } from '../../features/projects/AddMemberButton/AddmemberButton';
 import style from "./ProjectPage.module.scss";
+import { Button } from '../../components/Button/Button';
 
 const CreateProjectCard = ({ onProjectCreated }: { onProjectCreated: () => void }) => {
   const [isCreating, setIsCreating] = useState(false);
@@ -44,11 +45,13 @@ const CreateProjectCard = ({ onProjectCreated }: { onProjectCreated: () => void 
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name) return;
+
+    const cleanName = name.trim();
+    if (!cleanName) return;
 
     setIsLoading(true);
     try {
-      const newProject = await projectService.createProject(name, description);
+      const newProject = await projectService.createProject(cleanName, description.trim());
       for (const member of selectedMembers) {
         try {
           await projectService.addMember(newProject.id, member.userName);
@@ -96,7 +99,8 @@ const CreateProjectCard = ({ onProjectCreated }: { onProjectCreated: () => void 
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
         />
-        <div style={{ position: 'relative', marginTop: '5px' }}>
+        <div className={style.addMemberContainer}>
+          <span>Members:</span>
           <input 
             type="text" 
             placeholder="Search users to add..." 
@@ -109,7 +113,6 @@ const CreateProjectCard = ({ onProjectCreated }: { onProjectCreated: () => void 
                 <li 
                   key={user.id} 
                   onClick={() => handleAddPendingMember(user)}
-                  style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #444', color: 'white' }}
                 >
                   {user.userName}
                 </li>
@@ -118,22 +121,23 @@ const CreateProjectCard = ({ onProjectCreated }: { onProjectCreated: () => void 
           )}
         </div>
         {selectedMembers.length > 0 && (
-          <div>
+          <div className={style.memberSelected}>
             {selectedMembers.map(m => (
-              <span key={m.id} style={{ background: '#734FCF', color: 'white', padding: '2px 8px', borderRadius: '12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span key={m.id}>
                 {m.userName}
-                <button type="button" onClick={() => handleRemovePendingMember(m.id)} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer', fontSize: '14px', padding: 0 }}>&times;</button>
+                <button type="button" onClick={() => handleRemovePendingMember(m.id)} >&times;</button>
               </span>
             ))}
           </div>
         )}
-        <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-          <button type="submit" disabled={isLoading || !name} style={{ flex: 1, padding: '8px', backgroundColor: '#734FCF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-            {isLoading ? "Saving..." : "Save"}
-          </button>
-          <button type="button" onClick={() => { setIsCreating(false); setSelectedMembers([]); }} style={{ flex: 1, padding: '8px', backgroundColor: '#f1f1f1', color: '#333', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+        <div className={style.buttonsContainer}>
+          <Button size='sm' type="button" onClick={() => { setIsCreating(false); setSelectedMembers([]); }}>
             Cancel
-          </button>
+          </Button>
+          {/* JS CHECK: Disable button if input is just empty spaces */}
+          <Button size='sm' type="submit" disabled={isLoading || !name.trim()} >
+            {isLoading ? "Saving..." : "Save"}
+          </Button>
         </div>
       </form>
     </div>
@@ -153,9 +157,24 @@ const ProjectCard = ({ project, onProjectUpdated }: { project: Project, onProjec
     setIsEditingName(false);
     setIsEditingDesc(false);
 
-    if (editName !== project.name || editDesc !== project.description) {
+    const cleanName = editName.trim();
+    const cleanDesc = editDesc.trim();
+
+    let finalName = cleanName;
+    let finalDesc = cleanDesc;
+    if (!cleanName) {
+      finalName = project.name;
+      setEditName(project.name);
+    }
+
+    if (!cleanDesc && project.description) {
+      finalDesc = project.description;
+      setEditDesc(project.description);
+    }
+
+    if (finalName !== project.name || finalDesc !== project.description) {
       try {
-        await projectService.updateProject(project.id, editName, editDesc);
+        await projectService.updateProject(project.id, finalName, finalDesc);
         onProjectUpdated(); 
       } catch (error) {
         console.error("Failed to update project", error);
@@ -176,19 +195,13 @@ const ProjectCard = ({ project, onProjectUpdated }: { project: Project, onProjec
           onBlur={handleSaveEdit} 
           onKeyDown={(e) => e.key === 'Enter' && handleSaveEdit()} 
           autoFocus
-          style={{ fontSize: '1.17em', fontWeight: 'bold', width: '100%', marginBottom: '10px', padding: '5px' }}
         />
       ) : (
         <h3 
           onDoubleClick={() => isOwner && setIsEditingName(true)}
-          style={{ 
-            cursor: isOwner ? 'pointer' : 'default',
-            userSelect: 'none',
-            borderBottom: isOwner ? '1px dashed #ccc' : 'none' 
-          }}
           title={isOwner ? "Double click to edit" : ""}
         >
-          {project.name} {isOwner && <span style={{ fontSize: '12px', color: '#888' }}>✏️</span>}
+          {project.name}
         </h3>
       )}
       {isEditingDesc && isOwner ? (
@@ -203,12 +216,6 @@ const ProjectCard = ({ project, onProjectUpdated }: { project: Project, onProjec
       ) : (
         <p 
           onDoubleClick={() => isOwner && setIsEditingDesc(true)}
-          style={{ 
-            cursor: isOwner ? 'pointer' : 'default', 
-            minHeight: '20px',
-            userSelect: 'none',
-            borderBottom: isOwner ? '1px dashed #ccc' : 'none'
-          }}
           title={isOwner ? "Double click to edit" : ""}
         >
           {project.description || (isOwner ? "Double click to add a description..." : "No description.")}

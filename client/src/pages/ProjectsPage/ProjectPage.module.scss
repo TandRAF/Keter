@@ -8,6 +8,7 @@
     }
 }
 .projectCard{
+    width: 300px;
     .own{
         @include font-style(.8rem,"Bold");
         width: fit-content;
@@ -31,6 +32,11 @@
     }
     strong{
         @include font-style(1rem,"Bold");
+    }
+    input{
+         @include font-style(1.5rem,"Bold");
+         width: 100%;
+         padding: 0;
     }
    .membersIcons {
   display: flex;
@@ -63,6 +69,7 @@
 }
 
 .CreatepProjectCard{
+    width: 300px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -92,13 +99,13 @@
         flex-direction: column;
         gap:1rem;
         input, textarea{
-            border-radius: none;
+            border-radius: none !important;
             padding: 0;
             stroke: none;
             border: none;
             @include font-style(1rem,"Regular");
         }
-        input:nth-child(1){
+        & ~ input{
             @include font-style(1.5rem,"Regular"); 
         }
         textarea{
@@ -109,3 +116,64 @@
             outline: none!important;
         }
     }
+.addMemberContainer{
+    display: flex;
+    flex-direction: row;
+    span{
+        @include font-style(1rem,"Bold");
+         padding: 0.5rem 0.5rem 0.5rem 0;
+    }
+    input{
+        background-color: transparent;
+        stroke: none!important;
+        resize: none;
+        border: none!important;
+        outline: none!important;
+        border-radius: none;
+        padding: 0.5rem 0.5rem 0.5rem 0;
+        @include font-style(1rem,"Regular");
+    }
+    ul{
+        position:absolute;
+        padding: 0.5rem;
+        border: $border-line;
+        margin-top: 2rem;
+        background-color: $color-block;
+        border-radius: $borde-radius;
+        li{
+            text-decoration: none;
+            @include font-style(1rem,"Regular")
+        }
+    }
+}
+.buttonsContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    button{
+        width: 100%;
+        &:nth-child(1){
+            background-color: transparent;
+            border: $border-line!important;
+            color: $color-border;
+        }
+    }
+}
+.memberSelected{
+    margin-top: -1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    span{
+        background-color: $color-secondary;
+        padding: 0.2rem 0.5rem;
+        width: fit-content;
+        border-radius: $borde-radius;
+        button{
+            stroke: none;
+            border: none;
+            background-color: transparent;
+        }
+    }
+}

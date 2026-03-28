@@ -1,4 +1,3 @@
-// features/board/TaskModal/TaskModal.tsx
 import React, { useState } from 'react';
 import { type TaskT } from '../../../services/taskService';
 import styles from './TaskModal.module.scss';

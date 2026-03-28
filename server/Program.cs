@@ -84,6 +84,8 @@ builder.Services.AddScoped<IBoardService, BoardService>();
 builder.Services.AddScoped<IBoardRepository, BoardRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IColumnRepository, ColumnRepository>();
+builder.Services.AddScoped<IColumnService, ColumnService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -12,7 +12,7 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260320174210_InitDB")]
+    [Migration("20260327115541_InitDB")]
     partial class InitDB
     {
         /// <inheritdoc />
@@ -324,16 +324,16 @@ namespace server.Migrations
                         {
                             Id = "user-admin-1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0d1f6211-2044-4790-aa0d-f503256231c4",
+                            ConcurrencyStamp = "f8ad3925-c75b-4c1f-8f73-388834d6b522",
                             Email = "working@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "WORKING@KETER.RO",
                             NormalizedUserName = "WORKING_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL/QivkbteUpbjgqGInOwxdzXJ0SjYiry3leYaC2K7QAhpoGGO/Edf4SZzIsF4t96w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELcxTqJFDEQGkuuqsgfw7iF2D6/1aF8J9nXveJE1aQL1OWdtGYtpRQJyAy5z0xjUyw==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "../avatars/WorkingRaccoon.png",
-                            SecurityStamp = "4cfb7286-d5ae-404c-b909-4f95c124ac93",
+                            ProfilePictureUrl = "/../avatars/WorkingRaccoon.png",
+                            SecurityStamp = "f5319486-2472-4c29-9017-8a70e7433ea3",
                             TwoFactorEnabled = false,
                             UserName = "working_raccoon"
                         },
@@ -341,16 +341,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "07edb8e6-dcd9-4d2d-8900-b77e17f2f0da",
+                            ConcurrencyStamp = "083b3df2-cd70-4f90-8525-1ee752e00e2b",
                             Email = "money@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MONEY@KETER.RO",
                             NormalizedUserName = "MONEY_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKjZO8Rl4QRrtKFWPG3p8V0LzMGNPVYlZs+e2V/7FogobUex2n18gP+JP1YxWODuiA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEACSFFg7kkdF/aY13z9VA1dHzb1LkuKjahewsnlUzrHzTj++W6HxZ8emnTRNeET/mA==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "../avatars/CardRaccoon.png",
-                            SecurityStamp = "008c66f9-d554-488e-b7b0-1adb9f9b278a",
+                            ProfilePictureUrl = "/../avatars/CardRaccoon.png",
+                            SecurityStamp = "b3be891b-0b0f-4c4f-b7b6-2571d26265d9",
                             TwoFactorEnabled = false,
                             UserName = "money_raccoon"
                         },
@@ -358,16 +358,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7031d175-07eb-47b5-a650-a1d6ccd389c8",
+                            ConcurrencyStamp = "95cd462d-3ba5-497c-9873-815b48558acf",
                             Email = "cool@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "COOL@KETER.RO",
                             NormalizedUserName = "COOL_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIOSaKR9SA9b9tgEydcRr1nPmq1azR0U4Zuu2XA5b4AXDr2/bxLgRjmB+jvrXd35CA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBZYRlmGoKqga5sLme6wehrzXWjj3KzBj2Yt3QLzIxreSnBW6a4Yz8U9ergXR6+dyQ==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "../avatars/coolRaccoon.png",
-                            SecurityStamp = "004f9091-6b3f-4998-9c7e-b52800589f07",
+                            ProfilePictureUrl = "/../avatars/coolRaccoon.png",
+                            SecurityStamp = "b1604d31-26a0-4b13-86f7-e61e061a7b1f",
                             TwoFactorEnabled = false,
                             UserName = "cool_raccoon"
                         },
@@ -375,16 +375,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6b89cd04-0233-4c26-9245-9b131453cf6b",
+                            ConcurrencyStamp = "dd4c4765-5f3c-462e-914c-d1c7e97c95f6",
                             Email = "bath@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BATH@KETER.RO",
                             NormalizedUserName = "BATH_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAENaMsrSzFgnWrJVhQc/D1DJ5susod5odXSDbnnXZLfhFIFnbOZdlBx+EMSOCSv5owQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDOoPljwinST2th/3hB/AB+uLO/wefxhz6O5W0lKVwG26CjlltMSgn+RBS6bSl1cVQ==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "../avatars/BathRaccoon.png",
-                            SecurityStamp = "1e6840ba-52cc-46c0-a763-c4fa03258dfe",
+                            ProfilePictureUrl = "/../avatars/BathRaccoon.png",
+                            SecurityStamp = "e1d5a9f2-adfd-4a00-b71b-c1fe46a720a1",
                             TwoFactorEnabled = false,
                             UserName = "bath_raccoon"
                         },
@@ -392,16 +392,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aa1dbcac-1860-4489-8a48-37f1550dc211",
+                            ConcurrencyStamp = "24ee552e-8353-4610-8823-73e9788e71d0",
                             Email = "banana@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BANANA@KETER.RO",
                             NormalizedUserName = "BANANA_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPRrdua/Nq9+jpKOUNZFjF2bDc26f8AvSxNdSyU+oQ06nNCxe5xhn2seL06eV2wioA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENlDxy8th3VNs+M/uRtR/736huINyc02FXPj9FStz7g10ydmR0365QMJW31OSKjhFg==",
                             PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "../avatars/BananaRaccoon.png",
-                            SecurityStamp = "d4d89c4d-207a-41cb-b6ab-f794695413eb",
+                            ProfilePictureUrl = "/../avatars/BananaRaccoon.png",
+                            SecurityStamp = "a2f34149-7cca-4c43-aab5-f966c3b05c92",
                             TwoFactorEnabled = false,
                             UserName = "banana_raccoon"
                         });
@@ -541,7 +541,7 @@ namespace server.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CreatedAt = new DateTime(2026, 3, 20, 17, 42, 10, 146, DateTimeKind.Utc).AddTicks(730),
+                            CreatedAt = new DateTime(2026, 3, 27, 11, 55, 41, 276, DateTimeKind.Utc).AddTicks(3560),
                             Description = "Proiect pentru facultate",
                             Name = "Platforma Keter",
                             OwnerId = "user-admin-1"
@@ -560,11 +560,18 @@ namespace server.Migrations
                     b.Property<Guid>("ColumnId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime?>("Deadline")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
                     b.Property<int>("Order")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -586,6 +593,7 @@ namespace server.Migrations
                             AssignedUserId = "user-member-1",
                             ColumnId = new Guid("44444444-4444-4444-4444-444444444413"),
                             Order = 0,
+                            Status = "Done",
                             Title = "Configurare Docker"
                         },
                         new
@@ -594,6 +602,7 @@ namespace server.Migrations
                             AssignedUserId = "user-member-2",
                             ColumnId = new Guid("44444444-4444-4444-4444-444444444412"),
                             Order = 0,
+                            Status = "In Progress",
                             Title = "Creare DbContext"
                         },
                         new
@@ -602,6 +611,7 @@ namespace server.Migrations
                             AssignedUserId = "user-member-3",
                             ColumnId = new Guid("44444444-4444-4444-4444-444444444421"),
                             Order = 0,
+                            Status = "To Do",
                             Title = "Design UI in SCSS"
                         },
                         new
@@ -610,6 +620,7 @@ namespace server.Migrations
                             AssignedUserId = "user-member-4",
                             ColumnId = new Guid("44444444-4444-4444-4444-444444444421"),
                             Order = 1,
+                            Status = "To Do",
                             Title = "Integrare Axios"
                         });
                 });

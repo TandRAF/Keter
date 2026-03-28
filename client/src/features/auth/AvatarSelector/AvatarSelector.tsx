@@ -10,22 +10,20 @@ interface AvatarSelectorProps {
 }
 
 const link_avatars = [
-    '../avatars/BananaRaccoon.png',
-    '../avatars/BathRaccoon.png',
-    '../avatars/CardRaccoon.png',
-    '../avatars/coolRaccoon.png',
-    '../avatars/WorkingRaccoon.png',
-    '../avatars/AlcohoRaccoon.png',
-    '../avatars/BedRaccoon.png',
-    '../avatars/BikeRaccoon.png',
-    '../avatars/CatRaccoon.png',
-    '../avatars/dogRaccoon.png',
-    '../avatars/PizzaRaccoon.png',
-    '../avatars/StrongRaccoon.png',
-    '../avatars/TrashRaccoon.png',
+    '/../avatars/BananaRaccoon.png',
+    '/../avatars/BathRaccoon.png',
+    '/../avatars/CardRaccoon.png',
+    '/../avatars/coolRaccoon.png',
+    '/../avatars/WorkingRaccoon.png',
+    '/../avatars/AlcohoRaccoon.png',
+    '/../avatars/BedRaccoon.png',
+    '/../avatars/BikeRaccoon.png',
+    '/../avatars/CatRaccoon.png',
+    '/../avatars/dogRaccoon.png',
+    '/../avatars/PizzaRaccoon.png',
+    '/../avatars/StrongRaccoon.png',
+    '/../avatars/TrashRaccoon.png',
 ]
-
-// 2. Am aplicat noua interfață aici
 export const AvatarSelector: React.FC<AvatarSelectorProps> = ({ task, onFinish }) => {
   const { user, updateUser } = useAuth(); 
   

@@ -20,6 +20,10 @@
     padding: 0.5rem;
     border: $border-line;
     border-radius: $borde-radius;
+    .memberInput{
+        border-radius: 0;
+        @include font-style(1rem,"Regular")
+    }
     ul{
         li{
             padding: 0.5rem 1rem;

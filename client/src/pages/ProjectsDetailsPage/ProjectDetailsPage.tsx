@@ -1,7 +1,11 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { projectService, type Project } from '../../services/projectService';
+import { boardService, type BoardReadDto } from '../../services/boardService'; // <-- Importă serviciul pentru board
 import { AddMemberButton } from '../../features/projects/AddMemberButton/AddmemberButton';
+import style from './ProjectDetailsPage.module.scss';
+import { Boards } from '../../components/Icons/Icons';
+
 interface ProjectContextType {
   project: Project;
   isOwner: boolean;
@@ -15,28 +19,36 @@ export const useProjectContext = () => {
 };
 
 export const ProjectDetails = ({ children }: { children: React.ReactNode }) => {
-  const { projectId } = useParams<{ projectId: string }>();
+  const { projectId, boardId } = useParams<{ projectId: string; boardId: string }>(); 
   const [project, setProject] = useState<Project | null>(null);
+  const [boardName, setBoardName] = useState<string | null>(null); 
   const [isLoading, setIsLoading] = useState(true);
 
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
   const currentUserId = currentUser.id;
 
-  const fetchProjectData = async () => {
+  const fetchData = async () => {
     if (!projectId) return;
     try {
       const projectData = await projectService.getProjectById(projectId);
       setProject(projectData);
+      if (boardId) {
+        const boardData = await boardService.getBoardData(boardId);
+        setBoardName(boardData.name);
+      } else {
+        setBoardName(null); 
+      }
+      
     } catch (error) {
-      console.error("Error fetching project details:", error);
+      console.error("Error fetching details:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchProjectData();
-  }, [projectId]);
+    fetchData();
+  }, [projectId, boardId]);
 
   if (isLoading || !project) return <div>Loading project workspace...</div>;
 
@@ -44,35 +56,51 @@ export const ProjectDetails = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ProjectContext.Provider value={{ project, isOwner }}>
-      <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', height: '100vh' }}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #333', paddingBottom: '1rem', marginBottom: '2rem' }}>
-          <div>
-            <h1 style={{ margin: 0 }}>{project.name}</h1>
-            <p style={{ margin: 0, color: '#888' }}>{project.description}</p>
+      <div className={style.container}>
+        <header>
+          <div className={style.navBoards}>
+            <Link to={`/projects/${project.id}`}>
+            <Boards/> 
+            <span>Boards</span>
+          </Link>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <div style={{ display: 'flex', gap: '5px' }}>
-              {project.owner && (
-                 <span title={`${project.owner.userName} (Owner)`}>👑</span>
-              )}
+          <h1>{project.name}</h1>
+          <div className={style.members}>
+            <div>
               {project.members?.map(m => (
                   <img 
                     key={m.id} 
                     src={m.profilePictureUrl || "/default-avatar.png"} 
                     alt={m.userName} 
                     title={m.userName} 
-                    style={{ width: '30px', height: '30px', borderRadius: '50%' }}
                   />
               ))}
             </div>
             <AddMemberButton 
               projectId={project.id} 
               isOwner={isOwner} 
-              onMemberAdded={fetchProjectData} 
+              onMemberAdded={fetchData} 
             />
           </div>
         </header>
-        <main style={{ flex: 1, overflowY: 'auto' }}>
+        <div className={style.projectNav}>
+            <h1 className={style.breadcrumbs}>
+              <Link to={`/projects`} className={style.breadcrumbLink}>
+                Projects
+              </Link>
+              <span className={style.separator}> / </span>
+              <Link to={`/projects/${project.id}`} className={style.breadcrumbLink}>
+                { project.name}
+              </Link>
+              {boardName && (
+                <>
+                  <span className={style.separator}> / </span>
+                  <span className={style.breadcrumbActive}>{boardName}</span>
+                </>
+              )}
+            </h1>
+          </div>
+        <main>
           {children}
         </main>
       </div>

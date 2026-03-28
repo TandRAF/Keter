@@ -8,6 +8,8 @@ namespace server.Models
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string ColorHex { get; set; } = "#FFFFFF"; 
+        public Guid ProjectId { get; set; }
+        public Project? Project { get; set; }
         public List<ProjectTask> Tasks { get; set; } = new();
     }
 }

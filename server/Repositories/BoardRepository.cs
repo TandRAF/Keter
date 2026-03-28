@@ -23,12 +23,15 @@ namespace server.Repositories
 
         public async Task<Board?> GetByIdAsync(Guid id)
         {
-            // Aici aducem tot "arborele" board-ului (Coloane -> Task-uri -> Tag-uri)
-            return await _context.Boards
-                .Include(b => b.Columns.OrderBy(c => c.Order)) // Ordonăm coloanele cum trebuie
-                    .ThenInclude(c => c.Tasks.OrderBy(t => t.Order))
+            var board = await _context.Boards
+                .Include(b => b.Columns)
+                    .ThenInclude(c => c.Tasks)
+                        .ThenInclude(t => t.AssignedUser)
+                .Include(b => b.Columns)
+                    .ThenInclude(c => c.Tasks)
                         .ThenInclude(t => t.Tags)
                 .FirstOrDefaultAsync(b => b.Id == id);
+            return board;
         }
 
         public async Task<Board> CreateAsync(Board board)

@@ -2,9 +2,10 @@
 .navContainer{
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     h3{
-        padding: 0.5rem;
+        padding: 0.5rem 0 ;
+        text-wrap: nowrap;
         @include font-style(1.2rem, "Bold");
     }
     .projectList{
@@ -45,4 +46,12 @@
         white-space: nowrap;
         text-decoration: none;
     }
+}
+.noProjectItem{
+    padding: 3rem 1rem;
+    text-wrap: nowrap;
+
+    @include font-style(1rem, "Regular");
+    // @include block-border;
+    color: $color-border;
 }

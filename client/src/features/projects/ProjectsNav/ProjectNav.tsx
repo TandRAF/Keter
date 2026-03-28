@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { projectService, type Project } from '../../../services/projectService';
 import { boardService, type BoardReadDto } from '../../../services/boardService';
 import styles from './ProjectNav.module.scss';
+import { span } from 'framer-motion/client';
 
 export const ProjectNav = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -43,9 +44,9 @@ export const ProjectNav = () => {
       <ul className={styles.projectList}>
 
         {projects.length === 0 ? (
-          <li className={styles.projectItem}>
-            Nu ai niciun proiect momentan.
-          </li>
+          <div className={styles.noProjectItem}>
+            No Projects <br /> 
+          </div>
         ) : (
           projects.map((project) => {
             const projectBoards = boardsByProject[project.id] || [];
@@ -64,7 +65,7 @@ export const ProjectNav = () => {
                 
                 <ul className={styles.boardList}>
                   {projectBoards.length === 0 ? (
-                      <li>Niciun board.</li>
+                      <span></span>
                   ) : (
                     projectBoards.map((board) => (
                       <li key={board.id}>

@@ -1,7 +1,7 @@
 import { type DraggableProvided, type DraggableStateSnapshot } from "@hello-pangea/dnd"
 import { type TaskT } from '../../../services/taskService';
 import style from "./Task.module.scss"
-import { KeterProfile } from "../../../components/Icons/Icons";
+import { AddUser } from "../../../components/Icons/Icons";
  
 interface props {
     provided: DraggableProvided;
@@ -11,6 +11,7 @@ interface props {
 }
 
 export const Task = ({ provided, snapshot, taskData, onDoubleClick }: props) => {
+
   return (
     <div
         ref={provided.innerRef}
@@ -35,10 +36,17 @@ export const Task = ({ provided, snapshot, taskData, onDoubleClick }: props) => 
               <h2>{taskData.title}</h2>
           </div>
           <div className={style.icon}>
-              <KeterProfile/>
+              {taskData.assignedUser ? (
+                <img 
+                  src={taskData.assignedUser.profilePictureUrl} 
+                  alt={taskData.assignedUser?.userName || "User Profile"} 
+                  title={taskData.assignedUser?.userName}
+                />
+              ) : (
+                <AddUser/>
+              )}
           </div>
        </header>
-       
        <div className={style.taskData}>
           <div className={style.data}></div>
           <div className={style.status}>

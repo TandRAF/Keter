@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace server.Models
 {
@@ -10,6 +8,10 @@ namespace server.Models
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string? Description { get; set; }
+        public string Status { get; set; } = string.Empty;
+        
+        public DateTime? Deadline { get; set; }
+
         public Guid ColumnId { get; set; }
         public BoardColumn? Column { get; set; }
         public int Order { get; set; } 

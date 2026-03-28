@@ -101,7 +101,6 @@ useEffect(() => {
                     </header>              
 
                     <AnimatePresence>
-                      {/* Conținutul se expandează DOAR când task-ul este In Progress */}
                       {task.status === 'col-2' && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}

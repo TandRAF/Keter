@@ -78,6 +78,7 @@ export const AddMemberButton = ({ projectId, isOwner, onMemberAdded }: AddMember
         className={style.searchContainer}
          style={{ position: 'absolute', top: '100%', left: 0}}>
           <input 
+            className={style.memberInput}
             type="text" 
             placeholder="Search username..." 
             value={searchQuery}

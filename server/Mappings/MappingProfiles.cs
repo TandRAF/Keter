@@ -36,6 +36,11 @@ namespace server.Mappings
             
             // MAPPING TAGS
             CreateMap<Tag, TagReadDto>(); 
+            CreateMap<TagCreateDto, Tag>();
+
+            // MAPPING Columns
+            CreateMap<ColumnCreateDto, BoardColumn>();
+            CreateMap<BoardColumn, ColumnReadDto>();
         }
     }
 }

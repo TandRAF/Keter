@@ -9,8 +9,8 @@ import { WellcomePage } from "../pages/WellcomePage/WellcomePage"
 import { TestPage } from "../pages/TestPage/TestPage";
 import { ProjectsPage } from "../pages/ProjectsPage/ProjectsPage";
 import { ProjectDetails } from "../pages/ProjectsDetailsPage/ProjectDetailsPage";
-import { Boards } from "../features/board/Boards/boards";
-import { Board } from "../features/board/Board/Board"; // IMPORT THE NEW BOARD COMPONENT
+import { Boards } from "../features/board/Boards/Boards"
+import { Board } from "../features/board/Board/Board";
 import { NotFoundPage } from "../pages/NotFoundPage/NotFoundPage";
 
 export const router = createBrowserRouter([

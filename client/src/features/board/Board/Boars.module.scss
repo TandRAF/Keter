@@ -1,5 +1,33 @@
 @use "../../../styles/index.scss" as *;
 
+.container{
+    background-color: $color-block;
+    border-radius: $borde-radius;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1rem;
+    border: $border-line;
+    width: 100%;
+    box-sizing: border-box;
+    height: 85vh;
+    h2{
+        box-sizing: border-box;
+        width: 100%;
+        @include font-style(1.5rem, "Regular");
+    }  
+    input{
+        padding: 0;
+        border: none;
+
+    }
+    .createTitle{
+        padding: 0;
+        @include font-style(1.5rem, "Regular");
+        border-radius: none !important;
+    }
+}
 .board{
     display: flex;
     gap: 20px;
@@ -7,16 +35,46 @@
         @include font-style(1.5rem, "Bold");
     }
     .column{
-        width: 350px;
-        min-height: 200px;
-        & > div{
-        background-color: $color-block;
-        padding: $padding-space *0.6;
-        border-radius: $borde-radius;
-        min-height: 100px;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+        max-width: 350px;
+        min-width: 350px;
+        & > div + div{
+            background-color: $color-column;
+            padding: $padding-space *0.6;
+            border-radius: $borde-radius;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
     }
+}
+.boardContainer{
+    height: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory; 
+    &::-webkit-scrollbar {
+        height: 4px; 
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $color-secondary;
+        border-radius: 5px;
+    }
+}
+.creatColumnButton{
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    min-width: 300px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 50vh;
+    @include block-border;
+    @include font-style(1.5rem, "Regular");
+    color: $color-border;
+    background-color: transparent;
+    stroke: none;
+    border: none;
 }

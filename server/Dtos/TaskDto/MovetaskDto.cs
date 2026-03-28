@@ -4,5 +4,6 @@ namespace server.Dtos.TaskDto
     {
         public Guid NewColumnId { get; set; }
         public int NewOrder { get; set; }
+        public string NewStatus { get; set; } = string.Empty;
     }
 }

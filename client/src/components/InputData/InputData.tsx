@@ -2,6 +2,13 @@ import { useState,useRef,useEffect } from "react";
 import styles from "./InputData.module.scss";
 import { Button } from "../Button/Button";
 import { ShowPassword,HidePassword, Calendar, DropDown} from "../Icons/Icons";
+import { span } from "framer-motion/client";
+
+type UserOption = {
+  id: string;
+  userName: string;
+  profilePictureUrl?: string;
+};
 
 type InputDataProps = {
   type:
@@ -11,6 +18,7 @@ type InputDataProps = {
     | "phone"
     | "calendar"
     | "select"
+    | "user-select"
     | "radio"
     | "textarea";
   id: string;
@@ -18,6 +26,7 @@ type InputDataProps = {
   placeholder?: string;
   required?: boolean;
   options?: string[];
+  userOptions?: UserOption[];
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
@@ -30,6 +39,7 @@ const InputData = ({
   placeholder,
   required = false,
   options = [],
+  userOptions = [],
   onChange,
 }: InputDataProps) => {
   const [focused, setFocused] = useState(false);
@@ -214,7 +224,7 @@ const InputData = ({
   );
 }
 
-    case "calendar":
+case "calendar":
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
@@ -223,7 +233,6 @@ const InputData = ({
   const popupRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // 🔹 Close on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -307,7 +316,7 @@ const InputData = ({
   };
 
   return (
-    <div ref={wrapperRef} className={styles.formInput}>
+    <div ref={wrapperRef} className={styles.calendarFrom}>
       <label htmlFor={id}>{label}</label>
       <div className={styles.inputWrapper}>
         <input
@@ -323,11 +332,8 @@ const InputData = ({
           className={styles.icon}
           onClick={() => setShowCalendar((prev) => !prev)}
         >
-          <Calendar/>
         </span>
       </div>
-
-      {/* Popup calendar */}
       {showCalendar && (
         <div ref={popupRef} className={styles.calendarPopup}>
           <div className={styles.header}>
@@ -390,7 +396,6 @@ const InputData = ({
     { value: "in", label: "India" },
   ];
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -441,7 +446,91 @@ const InputData = ({
     </div>
   );
 }
+case "user-select": {
+      const [selectedUserId, setSelectedUserId] = useState<string>("");
+      const [open, setOpen] = useState(false);
+      const dropdownRef = useRef<HTMLDivElement>(null);
 
+      useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+          if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            setOpen(false);
+          }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+      }, []);
+
+      const handleUserSelect = (user: UserOption | null) => {
+        const valueToSet = user ? user.id : "";
+        setSelectedUserId(valueToSet);
+        setOpen(false);
+        
+        onChange?.({
+          target: { value: valueToSet, id },
+        } as unknown as React.ChangeEvent<HTMLInputElement>);
+      };
+
+      const selectedUser = userOptions?.find(u => u.id === selectedUserId);
+
+      const getProfileImage = (url?: string) => {
+        if (!url) return null;
+        const cleanUrl = url.replace(/^(\/?\.\.\/)+/, ''); 
+        return cleanUrl.startsWith('/') ? cleanUrl : `/${cleanUrl}`;
+      };
+
+      return (
+        <div className={styles.userSelectForm}>
+          <label htmlFor={id}>{label}</label>
+          <div className={styles.selectWrapper} ref={dropdownRef}>
+          
+            <button
+              type="button"
+              className={styles.dropdown__header}
+              onClick={() => setOpen(!open)}
+            >
+              <div className={styles.assignedBlock}>
+                {selectedUser ? (
+                 <span>{selectedUser.userName}</span>
+                ) : (
+                  <span>{placeholder || "Unassigned"}</span>
+                )}
+              </div>
+            </button>
+            {open && (
+              <div className={styles.dropdown__menu}>
+                <div
+                  className={styles.option}
+                  onClick={() => handleUserSelect(null)}
+                  style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}
+                >
+                  Unassigned
+                </div>
+                {userOptions?.map((user) => (
+                  <div
+                    key={user.id}
+                    className={styles.option}
+                    onClick={() => handleUserSelect(user)}
+                    style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px', cursor: 'pointer' }}
+                  >
+                     {user.profilePictureUrl ? (
+                      <img 
+                        src={getProfileImage(user.profilePictureUrl) as string} 
+                        alt={user.userName} 
+                        style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover' }}
+                      />
+                    ) : (
+                      <div style={{ width: '24px', height: '24px', borderRadius: '50%', backgroundColor: '#555' }} />
+                    )}
+                    <span>{user.userName}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
 
   case "radio":
   const [selectedPoint, setSelectedPoint] = useState("");
@@ -525,6 +614,7 @@ const InputData = ({
         </>
       );
   }
+  
 };
 
 export default InputData;

@@ -265,6 +265,8 @@ namespace server.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
+                    Status = table.Column<string>(type: "text", nullable: false),
+                    Deadline = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     ColumnId = table.Column<Guid>(type: "uuid", nullable: false),
                     Order = table.Column<int>(type: "integer", nullable: false),
                     AssignedUserId = table.Column<string>(type: "text", nullable: true)
@@ -324,11 +326,11 @@ namespace server.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "user-admin-1", 0, "0d1f6211-2044-4790-aa0d-f503256231c4", "working@keter.ro", false, null, false, null, "WORKING@KETER.RO", "WORKING_RACCOON", "AQAAAAIAAYagAAAAEL/QivkbteUpbjgqGInOwxdzXJ0SjYiry3leYaC2K7QAhpoGGO/Edf4SZzIsF4t96w==", null, false, "../avatars/WorkingRaccoon.png", "4cfb7286-d5ae-404c-b909-4f95c124ac93", false, "working_raccoon" },
-                    { "user-member-1", 0, "07edb8e6-dcd9-4d2d-8900-b77e17f2f0da", "money@keter.ro", false, null, false, null, "MONEY@KETER.RO", "MONEY_RACCOON", "AQAAAAIAAYagAAAAEKjZO8Rl4QRrtKFWPG3p8V0LzMGNPVYlZs+e2V/7FogobUex2n18gP+JP1YxWODuiA==", null, false, "../avatars/CardRaccoon.png", "008c66f9-d554-488e-b7b0-1adb9f9b278a", false, "money_raccoon" },
-                    { "user-member-2", 0, "7031d175-07eb-47b5-a650-a1d6ccd389c8", "cool@keter.ro", false, null, false, null, "COOL@KETER.RO", "COOL_RACCOON", "AQAAAAIAAYagAAAAEIOSaKR9SA9b9tgEydcRr1nPmq1azR0U4Zuu2XA5b4AXDr2/bxLgRjmB+jvrXd35CA==", null, false, "../avatars/coolRaccoon.png", "004f9091-6b3f-4998-9c7e-b52800589f07", false, "cool_raccoon" },
-                    { "user-member-3", 0, "6b89cd04-0233-4c26-9245-9b131453cf6b", "bath@keter.ro", false, null, false, null, "BATH@KETER.RO", "BATH_RACCOON", "AQAAAAIAAYagAAAAENaMsrSzFgnWrJVhQc/D1DJ5susod5odXSDbnnXZLfhFIFnbOZdlBx+EMSOCSv5owQ==", null, false, "../avatars/BathRaccoon.png", "1e6840ba-52cc-46c0-a763-c4fa03258dfe", false, "bath_raccoon" },
-                    { "user-member-4", 0, "aa1dbcac-1860-4489-8a48-37f1550dc211", "banana@keter.ro", false, null, false, null, "BANANA@KETER.RO", "BANANA_RACCOON", "AQAAAAIAAYagAAAAEPRrdua/Nq9+jpKOUNZFjF2bDc26f8AvSxNdSyU+oQ06nNCxe5xhn2seL06eV2wioA==", null, false, "../avatars/BananaRaccoon.png", "d4d89c4d-207a-41cb-b6ab-f794695413eb", false, "banana_raccoon" }
+                    { "user-admin-1", 0, "f8ad3925-c75b-4c1f-8f73-388834d6b522", "working@keter.ro", false, null, false, null, "WORKING@KETER.RO", "WORKING_RACCOON", "AQAAAAIAAYagAAAAELcxTqJFDEQGkuuqsgfw7iF2D6/1aF8J9nXveJE1aQL1OWdtGYtpRQJyAy5z0xjUyw==", null, false, "/../avatars/WorkingRaccoon.png", "f5319486-2472-4c29-9017-8a70e7433ea3", false, "working_raccoon" },
+                    { "user-member-1", 0, "083b3df2-cd70-4f90-8525-1ee752e00e2b", "money@keter.ro", false, null, false, null, "MONEY@KETER.RO", "MONEY_RACCOON", "AQAAAAIAAYagAAAAEACSFFg7kkdF/aY13z9VA1dHzb1LkuKjahewsnlUzrHzTj++W6HxZ8emnTRNeET/mA==", null, false, "/../avatars/CardRaccoon.png", "b3be891b-0b0f-4c4f-b7b6-2571d26265d9", false, "money_raccoon" },
+                    { "user-member-2", 0, "95cd462d-3ba5-497c-9873-815b48558acf", "cool@keter.ro", false, null, false, null, "COOL@KETER.RO", "COOL_RACCOON", "AQAAAAIAAYagAAAAEBZYRlmGoKqga5sLme6wehrzXWjj3KzBj2Yt3QLzIxreSnBW6a4Yz8U9ergXR6+dyQ==", null, false, "/../avatars/coolRaccoon.png", "b1604d31-26a0-4b13-86f7-e61e061a7b1f", false, "cool_raccoon" },
+                    { "user-member-3", 0, "dd4c4765-5f3c-462e-914c-d1c7e97c95f6", "bath@keter.ro", false, null, false, null, "BATH@KETER.RO", "BATH_RACCOON", "AQAAAAIAAYagAAAAEDOoPljwinST2th/3hB/AB+uLO/wefxhz6O5W0lKVwG26CjlltMSgn+RBS6bSl1cVQ==", null, false, "/../avatars/BathRaccoon.png", "e1d5a9f2-adfd-4a00-b71b-c1fe46a720a1", false, "bath_raccoon" },
+                    { "user-member-4", 0, "24ee552e-8353-4610-8823-73e9788e71d0", "banana@keter.ro", false, null, false, null, "BANANA@KETER.RO", "BANANA_RACCOON", "AQAAAAIAAYagAAAAENlDxy8th3VNs+M/uRtR/736huINyc02FXPj9FStz7g10ydmR0365QMJW31OSKjhFg==", null, false, "/../avatars/BananaRaccoon.png", "a2f34149-7cca-4c43-aab5-f966c3b05c92", false, "banana_raccoon" }
                 });
 
             migrationBuilder.InsertData(
@@ -356,7 +358,7 @@ namespace server.Migrations
             migrationBuilder.InsertData(
                 table: "Projects",
                 columns: new[] { "Id", "CreatedAt", "Description", "Name", "OwnerId" },
-                values: new object[] { new Guid("11111111-1111-1111-1111-111111111111"), new DateTime(2026, 3, 20, 17, 42, 10, 146, DateTimeKind.Utc).AddTicks(730), "Proiect pentru facultate", "Platforma Keter", "user-admin-1" });
+                values: new object[] { new Guid("11111111-1111-1111-1111-111111111111"), new DateTime(2026, 3, 27, 11, 55, 41, 276, DateTimeKind.Utc).AddTicks(3560), "Proiect pentru facultate", "Platforma Keter", "user-admin-1" });
 
             migrationBuilder.InsertData(
                 table: "Boards",
@@ -393,13 +395,13 @@ namespace server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Tasks",
-                columns: new[] { "Id", "AssignedUserId", "ColumnId", "Description", "Order", "Title" },
+                columns: new[] { "Id", "AssignedUserId", "ColumnId", "Deadline", "Description", "Order", "Status", "Title" },
                 values: new object[,]
                 {
-                    { new Guid("33333333-3333-3333-3333-333333333331"), "user-member-1", new Guid("44444444-4444-4444-4444-444444444413"), null, 0, "Configurare Docker" },
-                    { new Guid("33333333-3333-3333-3333-333333333332"), "user-member-2", new Guid("44444444-4444-4444-4444-444444444412"), null, 0, "Creare DbContext" },
-                    { new Guid("33333333-3333-3333-3333-333333333333"), "user-member-3", new Guid("44444444-4444-4444-4444-444444444421"), null, 0, "Design UI in SCSS" },
-                    { new Guid("33333333-3333-3333-3333-333333333334"), "user-member-4", new Guid("44444444-4444-4444-4444-444444444421"), null, 1, "Integrare Axios" }
+                    { new Guid("33333333-3333-3333-3333-333333333331"), "user-member-1", new Guid("44444444-4444-4444-4444-444444444413"), null, null, 0, "Done", "Configurare Docker" },
+                    { new Guid("33333333-3333-3333-3333-333333333332"), "user-member-2", new Guid("44444444-4444-4444-4444-444444444412"), null, null, 0, "In Progress", "Creare DbContext" },
+                    { new Guid("33333333-3333-3333-3333-333333333333"), "user-member-3", new Guid("44444444-4444-4444-4444-444444444421"), null, null, 0, "To Do", "Design UI in SCSS" },
+                    { new Guid("33333333-3333-3333-3333-333333333334"), "user-member-4", new Guid("44444444-4444-4444-4444-444444444421"), null, null, 1, "To Do", "Integrare Axios" }
                 });
 
             migrationBuilder.CreateIndex(
