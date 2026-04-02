@@ -86,5 +86,9 @@ namespace server.Services
                 }).ToList()
             };
         }
+        public async Task<bool> DeleteTaskAsync(Guid id)
+{
+            return await _repo.DeleteTaskAsync(id);
+        }
     }
 }

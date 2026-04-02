@@ -11,7 +11,8 @@ interface props {
 }
 
 export const Task = ({ provided, snapshot, taskData, onDoubleClick }: props) => {
-
+console.log(`Task-ul "${taskData.title}" are următoarele date:`, taskData);
+  console.log(`Tag-urile pentru "${taskData.title}":`, taskData.tags);
   return (
     <div
         ref={provided.innerRef}
@@ -30,9 +31,19 @@ export const Task = ({ provided, snapshot, taskData, onDoubleClick }: props) => 
        <header>
           <div className={style.titleTags}>
               <div className={style.tags}>
-                  <span className={style.tag}></span>
-                  <span className={style.tag}></span>
+                  {taskData.tags && taskData.tags.map(tag => (
+                      <span 
+                          key={tag.id} 
+                          className={style.tag}
+                          title={tag.name}
+                          style={{
+                              backgroundColor: tag.colorHex,
+                          }}
+                      >
+                      </span>
+                  ))}
               </div>
+              
               <h2>{taskData.title}</h2>
           </div>
           <div className={style.icon}>

@@ -25,6 +25,7 @@ import NavHomeIcon from '../../assets/nav-icons/navHome.svg?react'
 import NavTasksIcon from '../../assets/nav-icons/navTasks.svg?react'
 import NavProjectsIcon from '../../assets/nav-icons/projectsNav.svg?react'
 import NavNotificationIcon from '../../assets/nav-icons/navNotification.svg?react'
+import AddBlockIcon from '../../assets/icons/addBlock.svg?react'
 
 
 // Type
@@ -59,6 +60,7 @@ export const NavHome = (props:IconProps) => <NavHomeIcon className='icon'{...pro
 export const NavTasks = (props:IconProps) => <NavTasksIcon className='icon'{...props}/>
 export const NavProjects = (props:IconProps) => <NavProjectsIcon className='icon' {...props}/>
 export const NavNotification = (props:IconProps) => <NavNotificationIcon className='icom'{...props}/>
+export const AddBlock = (props:IconProps) => <AddBlockIcon className='icom'{...props}/>
 
 // IconPack object
 export const IconPack = {
@@ -85,7 +87,8 @@ export const IconPack = {
   NavHome,
   NavTasks,
   NavProjects,
-  NavNotification
+  NavNotification,
+  AddBlock
 };
 
 // Type

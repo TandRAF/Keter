@@ -10,6 +10,7 @@ namespace server.Interfaces
     {
         Task<IEnumerable<BoardReadDto>> GetBoardsByProjectAsync(Guid projectId);
         Task<BoardReadDto?> GetBoardByIdAsync(Guid id);
-        
+        Task<BoardReadDto> CreateBoardAsync(BoardCreateDto dto);
+        Task<bool> DeleteBoardAsync(Guid id);
     }
 }

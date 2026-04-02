@@ -86,6 +86,8 @@ builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IColumnRepository, ColumnRepository>();
 builder.Services.AddScoped<IColumnService, ColumnService>();
+builder.Services.AddScoped<ITagRepository,TagRepository>(); 
+builder.Services.AddScoped<ITagService,TagService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

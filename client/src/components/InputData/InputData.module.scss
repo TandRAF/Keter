@@ -255,6 +255,10 @@ input {
     gap: 0.25rem;
     height: fit-content;
     border-radius: $borde-radius;
+    align-items: center;
+    input{
+        padding: .5rem;
+    }
     .calendarPopup{
         background-color: $color-bg;
         margin-top: 1.5rem;

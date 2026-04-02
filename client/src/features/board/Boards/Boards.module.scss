@@ -1,0 +1,93 @@
+@use '../../../styles/index.scss' as *;
+
+.container{
+    width: 100%;
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    h2{
+        @include font-style(1.5rem, "Bold")
+    }
+}
+.BoardsContainer{
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.CreateBoardCard, .boardCard{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-radius: $borde-radius;
+    gap: 0.5rem;
+    background-color:$color-block;
+    padding: 1rem;
+    border: $border-line;
+}
+.CreateBoardCard{
+    display: flex;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    @include block-border;
+        h3{
+        @include font-style(1.5rem, "Bold");
+        color: $color-border;
+    }
+}
+.boardCard{
+     input,h3{
+        @include font-style(1.5rem, "Bold");
+    }
+}
+.columnContainer{
+    flex: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    gap: 0.5rem;
+    span{
+        @include font-style(0.8rem, "Regular");
+    };
+    .columns{
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        align-items: flex-end;
+        justify-content: end;
+        height: 4rem;
+    }
+    .columnTitles{
+        display: flex; 
+        gap: 0.5rem;
+        .title{
+            flex: 1;
+            text-align: center; 
+            text-overflow: ellipsis; 
+            white-space: nowrap;
+            @include font-style(0.6rem, "Regular");
+        }
+    }
+}
+.noColumnYet{
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    height: 100%;
+    color: #555;
+    font-size: 0.9rem;
+}
+.viewLink{
+    display: flex;
+    text-decoration: none;
+    padding: 0.5rem;
+    background-color: $color-tertiary;
+    color: $color-primary;
+    border-radius: $borde-radius;
+}

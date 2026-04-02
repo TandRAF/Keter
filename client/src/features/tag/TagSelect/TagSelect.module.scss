@@ -1,0 +1,7 @@
+@use '../../../styles/index.scss' as *;
+
+.selectTagContainer{
+    display: flex;
+    flex-direction: row;
+    @include font-style(1rem,"Regular");
+}

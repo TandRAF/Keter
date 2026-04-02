@@ -28,14 +28,7 @@
           .tag{
             height: 8px;
             border-radius: $borde-radius;
-            &:nth-child(1){
-              background-color: $color-primary;
-              width: 50px;
-            }
-            &:nth-child(2){
-              background-color: $color-text;
-              width: 20px;
-            }
+            width: 30%;
           }
         }
       }

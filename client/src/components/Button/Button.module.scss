@@ -25,6 +25,10 @@
     padding: 0;
     margin: 0;
   }
+    &.tertiary { 
+    background: $color-tertiary; 
+    color: $color-primary; 
+  }
 
   .icon {
     display: flex;

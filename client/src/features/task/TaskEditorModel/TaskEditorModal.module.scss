@@ -1,0 +1,9 @@
+@use '../../../styles/index.scss' as *;
+.EditTaskContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: $color-block;
+    padding: .5rem;
+    border: $border-line;
+    border-radius: $borde-radius;
+}

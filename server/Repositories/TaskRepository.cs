@@ -79,5 +79,13 @@ namespace server.Repositories
         {
             return await _context.SaveChangesAsync() > 0;
         }
+        public async Task<bool> DeleteTaskAsync(Guid id)
+{
+            var task = await _context.Tasks.FindAsync(id);
+            if (task == null) return false;
+
+            _context.Tasks.Remove(task);
+            return await SaveChangesAsync();
+        }
     }
 }

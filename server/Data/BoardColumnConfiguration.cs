@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using server.Models;
 using System;
+using System.Collections.Generic;
 
 namespace server.Data
 {
@@ -16,17 +17,27 @@ namespace server.Data
                    .HasForeignKey(t => t.ColumnId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasData(
-                new BoardColumn { Id = Guid.Parse("44444444-4444-4444-4444-444444444411"), Title = "To Do", Order = 0, BoardId = Guid.Parse("22222222-2222-2222-2222-222222222221") },
-                new BoardColumn { Id = Guid.Parse("44444444-4444-4444-4444-444444444412"), Title = "In Progress", Order = 1, BoardId = Guid.Parse("22222222-2222-2222-2222-222222222221") },
-                new BoardColumn { Id = Guid.Parse("44444444-4444-4444-4444-444444444413"), Title = "Done", Order = 2, BoardId = Guid.Parse("22222222-2222-2222-2222-222222222221") }
-            );
+            var columns = new List<BoardColumn>();
+            var boardIds = new[]
+            {
+                "22222222-2222-2222-2222-222222222221",
+                "22222222-2222-2222-2222-222222222222",
+                "22222222-2222-2222-2222-222222222223",
+                "22222222-2222-2222-2222-222222222224",
+                "22222222-2222-2222-2222-222222222225",
+                "22222222-2222-2222-2222-222222222226",
+                "22222222-2222-2222-2222-222222222227"
+            };
 
-            builder.HasData(
-                new BoardColumn { Id = Guid.Parse("44444444-4444-4444-4444-444444444421"), Title = "To Do", Order = 0, BoardId = Guid.Parse("22222222-2222-2222-2222-222222222222") },
-                new BoardColumn { Id = Guid.Parse("44444444-4444-4444-4444-444444444422"), Title = "In Progress", Order = 1, BoardId = Guid.Parse("22222222-2222-2222-2222-222222222222") },
-                new BoardColumn { Id = Guid.Parse("44444444-4444-4444-4444-444444444423"), Title = "Done", Order = 2, BoardId = Guid.Parse("22222222-2222-2222-2222-222222222222") }
-            );
+            int colIndex = 11;
+            foreach (var bId in boardIds)
+            {
+                columns.Add(new BoardColumn { Id = Guid.Parse($"44444444-4444-4444-4444-4444444444{colIndex++}"), Title = "To Do", Order = 0, BoardId = Guid.Parse(bId) });
+                columns.Add(new BoardColumn { Id = Guid.Parse($"44444444-4444-4444-4444-4444444444{colIndex++}"), Title = "In Progress", Order = 1, BoardId = Guid.Parse(bId) });
+                columns.Add(new BoardColumn { Id = Guid.Parse($"44444444-4444-4444-4444-4444444444{colIndex++}"), Title = "Done", Order = 2, BoardId = Guid.Parse(bId) });
+            }
+
+            builder.HasData(columns);
         }
     }
 }

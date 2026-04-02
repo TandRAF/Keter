@@ -14,12 +14,18 @@ namespace server.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Board>> GetAllByProjectIdAsync(Guid projectId)
+        public async Task<List<Board>> GetAllByProjectIdAsync(Guid projectId)    
         {
             return await _context.Boards
                 .Where(b => b.ProjectId == projectId)
+                .Include(b => b.Columns)  
+                    .ThenInclude(c => c.Tasks)
+                        .ThenInclude(t => t.Tags)
+                .Include(b => b.Columns)
+                    .ThenInclude(c => c.Tasks)
+                        .ThenInclude(t => t.AssignedUser)
                 .ToListAsync();
-        }
+}
 
         public async Task<Board?> GetByIdAsync(Guid id)
         {

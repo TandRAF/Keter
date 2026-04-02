@@ -8,7 +8,7 @@ namespace server.Interfaces
 {
     public interface IBoardRepository
     {
-        Task<IEnumerable<Board>> GetAllByProjectIdAsync(Guid projectId);
+        Task<List<Board>> GetAllByProjectIdAsync(Guid projectId);
         Task<Board?> GetByIdAsync(Guid id);
         Task<Board> CreateAsync(Board board);
         Task UpdateAsync(Board board);

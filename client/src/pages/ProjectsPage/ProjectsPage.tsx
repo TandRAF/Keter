@@ -263,7 +263,7 @@ export const ProjectsPage = () => {
     <div className={style.container}>
       <h1>My Projects</h1>
       
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+      <div className={style.projectsContainer}>
 
         <CreateProjectCard onProjectCreated={fetchProjects} />
         {projects.map((p) => (

@@ -6,136 +6,10 @@ import { Task } from '../../task/Task/Task';
 import { type ColumnT, type TaskT, taskService, type TagT } from '../../../services/taskService';
 import { boardService } from '../../../services/boardService';
 import { columnService } from '../../../services/columnService'; 
-import { TaskModal } from '../../task/TaskModal/TaskModal'; 
 import { useProjectContext } from '../../../pages/ProjectsDetailsPage/ProjectDetailsPage'; 
-import InputData from '../../../components/InputData/InputData';
+import { tagService } from '../../../services/tagService';
 
-const CreateTaskBlock = ({ 
-  columnId, 
-  columnTitle, 
-  onClose,
-  onTaskCreated, 
-  members,
-  availableTags 
-}: { 
-  columnId: string; 
-  columnTitle: string;
-  onClose: () => void;
-  onTaskCreated: () => void;
-  members: any[]; 
-  availableTags?: TagT[]; 
-}) => {
-  const [title, setTitle] = useState("");
-  const [assignedUserId, setAssignedUserId] = useState<string>("");
-  const [deadline, setDeadline] = useState<string>("");
-  const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-const handleCreate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const cleanTitle = title.trim();
-    if (!cleanTitle) return;
-
-    setIsLoading(true);
-
-    const payload = {
-        title: cleanTitle,
-        columnId: columnId,
-        status: columnTitle,
-        assignedUserId: assignedUserId || null, 
-        deadline: deadline || undefined, 
-        tagIds: selectedTagIds.length > 0 ? selectedTagIds : undefined
-    };
-
-    console.log("SENDING TASK PAYLOAD TO SERVER:", payload);
-
-    try {
-      await taskService.createTask(payload);
-      
-      onTaskCreated(); 
-      onClose();
-    } catch (error) {
-      console.error("Failed to create task:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  const toggleTag = (tagId: string) => {
-    setSelectedTagIds(prev => 
-      prev.includes(tagId) ? prev.filter(id => id !== tagId) : [...prev, tagId]
-    );
-  };
-
-  return (
-      <div className={styles.container}>
-        <h5>Create New Task</h5>
-        
-        <form onSubmit={handleCreate}>
-          
-          <input className={styles.createTitle}
-            autoFocus 
-            placeholder="Task title..." 
-            value={title} 
-            onChange={(e) => setTitle(e.target.value)}
-            maxLength={100}
-          />
-          
-          <InputData
-            type="user-select"
-            id={`create-assignee`} 
-            label="Assign To"
-            placeholder="-- Unassigned --"
-            userOptions={members}
-            onChange={(e) => setAssignedUserId(e.target.value)}
-          />
-
-          <InputData
-            type="calendar"
-            id={`create-deadline`}
-            label="Deadline"
-            placeholder="Select deadline..."
-            onChange={(e) => setDeadline(e.target.value)}
-          />
-
-          {availableTags && availableTags.length > 0 && (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '4px' }}>
-              {availableTags.map(tag => (
-                <span 
-                  key={tag.id}
-                  onClick={() => toggleTag(tag.id)}
-                  style={{
-                    padding: '4px 10px', fontSize: '0.8rem', borderRadius: '12px', cursor: 'pointer',
-                    backgroundColor: selectedTagIds.includes(tag.id) ? tag.colorHex : '#444', color: 'white',
-                    border: selectedTagIds.includes(tag.id) ? '1px solid white' : '1px solid transparent'
-                  }}
-                >
-                  {tag.name}
-                </span>
-              ))}
-            </div>
-          )}
-
-          <div style={{ display: 'flex', gap: '10px', marginTop: '16px' }}>
-            <button 
-              type="submit" 
-              disabled={isLoading || !title.trim()} 
-              style={{ flex: 1, padding: '10px', backgroundColor: '#734FCF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
-            >
-              {isLoading ? "Creating..." : "Create Task"}
-            </button>
-            <button 
-              type="button" 
-              onClick={onClose} 
-              style={{ flex: 1, padding: '10px', backgroundColor: '#444', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-  );
-};
-
+import { TaskEditorModal } from '../../task/TaskEditorModel/TaskEditorModal'; 
 
 export const Board: React.FC = () => {
   const { boardId } = useParams<{ boardId: string }>();
@@ -146,7 +20,7 @@ export const Board: React.FC = () => {
   const [boardName, setBoardName] = useState(""); 
   const [boardTags, setBoardTags] = useState<TagT[]>([]); 
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const [selectedTask, setSelectedTask] = useState<TaskT | null>(null);
   const [activeColumnForNewTask, setActiveColumnForNewTask] = useState<string | null>(null); 
 
@@ -162,19 +36,33 @@ export const Board: React.FC = () => {
     return () => cancelAnimationFrame(animation);
   }, []);
 
-  const fetchBoard = useCallback(async () => {
+const fetchBoard = useCallback(async () => {
     if (!boardId) return;
     try {
+      setIsLoading(true);
+
       const boardData = await boardService.getBoardData(boardId);
       setColumns(boardData.columns || []); 
       setBoardName(boardData.name);
+      
+      if (project?.id) {
+
+          try {
+             const fetchedTags = await tagService.getProjectTags(project.id);
+             setBoardTags(fetchedTags); 
+          } catch (tagError) {
+             console.warn("Nu s-au putut aduce tag-urile (endpoint lipsă):", tagError);
+             setBoardTags([]); 
+          }
+      }
+
     } catch (error) {
       console.error("Eroare la încărcarea board-ului:", error);
-      navigate(`/projects/${project.id}`); 
+      navigate(`/projects/${project?.id}`); 
     } finally {
       setIsLoading(false);
     }
-  }, [boardId, project.id, navigate]);
+  }, [boardId, project?.id, navigate]);
 
   useEffect(() => {
     fetchBoard();
@@ -239,156 +127,149 @@ export const Board: React.FC = () => {
 
     setColumns(newColumns);
     try {
-      await taskService.moveTask(draggableId, destCol.id, destination.index,destCol.title);
+      await taskService.moveTask(draggableId, destCol.id, destination.index, destCol.title);
     } catch (error) {
       console.error("Eroare la salvarea pe server. Reverting UI...", error);
       fetchBoard();
     }
   };
 
-  const handleSaveTaskDetails = async (updatedTask: TaskT) => {
-    setColumns(prevColumns => prevColumns.map(col => ({
-      ...col,
-      tasks: col.tasks.map(t => t.id === updatedTask.id ? updatedTask : t)
-    })));
-  };
+  const isModalOpen = Boolean(activeColumnForNewTask || selectedTask);
 
   if (isLoading) return <div style={{ color: "white", padding: "2rem" }}>Loading Board...</div>;
 
   return (
     <>
-    <div className={styles.container}>
-      <h2 style={{ margin: 0 }}>{boardName}</h2>
+      <div className={styles.container}>
+        <h2 style={{ margin: 0 }}>{boardName}</h2>
+        
         <div className={styles.boardContainer}>
-           <DragDropContext onDragEnd={onDragEnd}>
-        <div className={styles.board}>
-          {columns.map((column) => (
-            <div className={styles.column} key={column.id}>
-              <div>
-                {editingColId === column.id ? (
+          <DragDropContext onDragEnd={onDragEnd}>
+            <div className={styles.board}>
+
+              {columns.map((column) => (
+                <div className={styles.column} key={column.id}>
+
                   <div>
-                    <input 
-                      autoFocus 
-                      value={editColTitle} 
-                      onChange={(e) => setEditColTitle(e.target.value)} 
-                      onBlur={() => handleUpdateColumnTitle(column.id, column.order)}
-                      onKeyDown={(e) => e.key === 'Enter' && handleUpdateColumnTitle(column.id, column.order)}
-                      style={{ padding: '5px', fontSize: '1rem', width: '100%', borderRadius: '4px', border: '1px solid #734FCF', background: '#222', color: 'white' }}
-                    />
-                    <button 
-                      onMouseDown={() => handleDeleteColumn(column.id)}
-                      style={{ padding: '4px', fontSize: '0.8rem', backgroundColor: '#d93838', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '4px' }}
-                    >
-                      Delete Column
-                    </button>
+                    {editingColId === column.id ? (
+                      <div>
+                        <input 
+                          autoFocus 
+                          value={editColTitle} 
+                          onChange={(e) => setEditColTitle(e.target.value)} 
+                          onBlur={() => handleUpdateColumnTitle(column.id, column.order)}
+                          onKeyDown={(e) => e.key === 'Enter' && handleUpdateColumnTitle(column.id, column.order)}
+                          style={{ padding: '5px', fontSize: '1rem', width: '100%', borderRadius: '4px', border: '1px solid #734FCF', background: '#222', color: 'white' }}
+                        />
+                        <button 
+                          onMouseDown={() => handleDeleteColumn(column.id)}
+                          style={{ padding: '4px', fontSize: '0.8rem', backgroundColor: '#d93838', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '4px' }}
+                        >
+                          Delete Column
+                        </button>
+                      </div>
+                    ) : (
+                      <h4 
+                        onDoubleClick={() => { 
+                          setEditingColId(column.id); 
+                          setEditColTitle(column.title); 
+                        }}
+                        style={{ cursor: 'pointer', userSelect: 'none', margin: 0 }}
+                        title="Double-click to edit or delete"
+                      >
+                        {column.title}
+                      </h4>
+                    )}
                   </div>
-                ) : (
-                  <h4 
-                    onDoubleClick={() => { 
-                      setEditingColId(column.id); 
-                      setEditColTitle(column.title); 
-                    }}
-                    style={{ cursor: 'pointer', userSelect: 'none', margin: 0 }}
-                    title="Double-click to edit or delete"
+
+                  {isBrowserReady && (
+                    <Droppable droppableId={String(column.id)}>
+                      {(provided, snapshot) => (
+                        <div 
+                          {...provided.droppableProps} 
+                          ref={provided.innerRef}
+                          style={{ minHeight: '10px' }} 
+                        >
+                          {column.tasks && column.tasks.map((task, index) => (
+                            <Draggable key={String(task.id)} draggableId={String(task.id)} index={index}>
+                              {(provided, snapshot) => (
+                                <Task 
+                                  provided={provided} 
+                                  snapshot={snapshot} 
+                                  taskData={task} 
+                                  onDoubleClick={() => setSelectedTask(task)} // Triggers EDIT mode
+                                />
+                              )}
+                            </Draggable>
+                          ))}
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                  )}
+
+                  <button 
+                    onClick={() => setActiveColumnForNewTask(column.id)} // Triggers CREATE mode
+                    style={{ width: '100%', padding: '8px', background: 'transparent', border: '1px dashed #555', color: '#aaa', borderRadius: '4px', cursor: 'pointer', marginTop: '10px' }}
                   >
-                    {column.title}
-                  </h4>
+                    + Add Task
+                  </button>
+
+                </div>
+              ))}
+
+              <div className={styles.column} style={{ minWidth: '280px', backgroundColor: 'rgba(255,255,255,0.03)', border: '1px dashed #555', display: 'flex', flexDirection: 'column' }}>
+                {isCreatingCol ? (
+                   <form onSubmit={handleCreateColumn} style={{ padding: '10px' }}>
+                      <input 
+                        autoFocus 
+                        placeholder="Enter column name..." 
+                        value={newColTitle} 
+                        onChange={e => setNewColTitle(e.target.value)} 
+                        style={{ width: '100%', padding: '8px', marginBottom: '10px', borderRadius: '4px', border: 'none' }} 
+                      />
+                      <div style={{ display: 'flex', gap: '5px' }}>
+                        <button type="submit" disabled={!newColTitle} style={{ flex: 1, padding: '6px', backgroundColor: '#734FCF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                          Add
+                        </button>
+                        <button type="button" onClick={() => setIsCreatingCol(false)} style={{ flex: 1, padding: '6px', backgroundColor: '#444', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                          Cancel
+                        </button>
+                      </div>
+                   </form>
+                ) : (
+                   <button 
+                     onClick={() => setIsCreatingCol(true)} 
+                     style={{ width: '100%', height: '100%', minHeight: '100px', background: 'transparent', border: 'none', color: '#aaa', cursor: 'pointer', fontSize: '1.1rem', fontWeight: 'bold' }}
+                   >
+                      + Add New Column
+                   </button>
                 )}
               </div>
-            
-              {isBrowserReady && (
-                <Droppable droppableId={String(column.id)}>
-                  {(provided, snapshot) => (
-                    <div 
-                      {...provided.droppableProps} 
-                      ref={provided.innerRef}
-                      style={{ minHeight: '10px' }} 
-                    >
-                      {column.tasks && column.tasks.map((task, index) => (
-                        <Draggable key={String(task.id)} draggableId={String(task.id)} index={index}>
-                          {(provided, snapshot) => (
-                            <Task 
-                              provided={provided} 
-                              snapshot={snapshot} 
-                              taskData={task} 
-                              onDoubleClick={() => setSelectedTask(task)}
-                            />
-                          )}
-                        </Draggable>
-                      ))}
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              )}
-  
-              <button 
-                onClick={() => setActiveColumnForNewTask(column.id)} 
-                style={{ width: '100%', padding: '8px', background: 'transparent', border: '1px dashed #555', color: '#aaa', borderRadius: '4px', cursor: 'pointer', marginTop: '10px' }}
-              >
-                + Add Task
-              </button>
 
             </div>
-          ))}
-          <div className={styles.column} style={{ minWidth: '280px', backgroundColor: 'rgba(255,255,255,0.03)', border: '1px dashed #555', display: 'flex', flexDirection: 'column' }}>
-            {isCreatingCol ? (
-               <form onSubmit={handleCreateColumn} style={{ padding: '10px' }}>
-                  <input 
-                    autoFocus 
-                    placeholder="Enter column name..." 
-                    value={newColTitle} 
-                    onChange={e => setNewColTitle(e.target.value)} 
-                    style={{ width: '100%', padding: '8px', marginBottom: '10px', borderRadius: '4px', border: 'none' }} 
-                  />
-                  <div style={{ display: 'flex', gap: '5px' }}>
-                    <button type="submit" disabled={!newColTitle} style={{ flex: 1, padding: '6px', backgroundColor: '#734FCF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-                      Add
-                    </button>
-                    <button type="button" onClick={() => setIsCreatingCol(false)} style={{ flex: 1, padding: '6px', backgroundColor: '#444', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-                      Cancel
-                    </button>
-                  </div>
-               </form>
-            ) : (
-               <button 
-                 onClick={() => setIsCreatingCol(true)} 
-                 style={{ width: '100%', height: '100%', minHeight: '100px', background: 'transparent', border: 'none', color: '#aaa', cursor: 'pointer', fontSize: '1.1rem', fontWeight: 'bold' }}
-               >
-                  + Add New Column
-               </button>
-            )}
-          </div>
-
+          </DragDropContext>
         </div>
-      </DragDropContext>
-        </div>
-    </div>
-
-  {activeColumnForNewTask && (
-      <CreateTaskBlock 
-        columnId={activeColumnForNewTask} 
-        
-        columnTitle={columns.find(c => c.id === activeColumnForNewTask)?.title || "To Do"} 
-        
-        onClose={() => setActiveColumnForNewTask(null)}
-        onTaskCreated={() => {
-           fetchBoard();
-           setActiveColumnForNewTask(null);
-        }} 
-        members={project.members || []} 
-        availableTags={boardTags} 
-      />
-    )}
-
-    {selectedTask && (
-      <TaskModal 
-        key={selectedTask.id}
-        task={selectedTask} 
-        onClose={() => setSelectedTask(null)} 
-        onSave={handleSaveTaskDetails}
-      />
-    )}
+      </div>
+      {isModalOpen && project && (
+        <TaskEditorModal 
+          projectId={project.id}
+          columnId={activeColumnForNewTask || selectedTask?.columnId || ""} 
+          columnTitle={columns.find(c => c.id === (activeColumnForNewTask || selectedTask?.columnId))?.title || ""} 
+          task={selectedTask} 
+          onClose={() => {
+             setActiveColumnForNewTask(null);
+             setSelectedTask(null);
+          }}
+          onSaveSuccess={() => {
+             fetchBoard(); 
+             setActiveColumnForNewTask(null);
+             setSelectedTask(null);
+          }} 
+          members={project.members || []} 
+          availableTags={boardTags} 
+        />
+      )}
 
     </>
   );

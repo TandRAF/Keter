@@ -12,6 +12,7 @@ namespace server.Interfaces
         Task<bool> SaveChangesAsync(); 
         Task<int> GetMaxOrderInColumnAsync(Guid columnId);
         Task<ProjectTask> CreateTaskAsync(ProjectTask task, List<Guid>? tagIds);
+        Task<bool> DeleteTaskAsync(Guid id);
         
     }
 }

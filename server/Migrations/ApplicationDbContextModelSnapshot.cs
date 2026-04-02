@@ -229,6 +229,31 @@ namespace server.Migrations
                         {
                             ProjectId = new Guid("11111111-1111-1111-1111-111111111111"),
                             UserId = "user-member-4"
+                        },
+                        new
+                        {
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111112"),
+                            UserId = "user-member-1"
+                        },
+                        new
+                        {
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111112"),
+                            UserId = "user-member-3"
+                        },
+                        new
+                        {
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111113"),
+                            UserId = "user-member-2"
+                        },
+                        new
+                        {
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111113"),
+                            UserId = "user-member-4"
+                        },
+                        new
+                        {
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111114"),
+                            UserId = "user-member-1"
                         });
                 });
 
@@ -245,6 +270,43 @@ namespace server.Migrations
                     b.HasIndex("TasksId");
 
                     b.ToTable("ProjectTaskTag");
+
+                    b.HasData(
+                        new
+                        {
+                            TagsId = new Guid("55555555-5555-5555-5555-555555555501"),
+                            TasksId = new Guid("33333333-3333-3333-3333-333333333301")
+                        },
+                        new
+                        {
+                            TagsId = new Guid("55555555-5555-5555-5555-555555555502"),
+                            TasksId = new Guid("33333333-3333-3333-3333-333333333301")
+                        },
+                        new
+                        {
+                            TagsId = new Guid("55555555-5555-5555-5555-555555555501"),
+                            TasksId = new Guid("33333333-3333-3333-3333-333333333304")
+                        },
+                        new
+                        {
+                            TagsId = new Guid("55555555-5555-5555-5555-555555555503"),
+                            TasksId = new Guid("33333333-3333-3333-3333-333333333307")
+                        },
+                        new
+                        {
+                            TagsId = new Guid("55555555-5555-5555-5555-555555555519"),
+                            TasksId = new Guid("33333333-3333-3333-3333-333333333315")
+                        },
+                        new
+                        {
+                            TagsId = new Guid("55555555-5555-5555-5555-555555555512"),
+                            TasksId = new Guid("33333333-3333-3333-3333-333333333318")
+                        },
+                        new
+                        {
+                            TagsId = new Guid("55555555-5555-5555-5555-555555555515"),
+                            TasksId = new Guid("33333333-3333-3333-3333-333333333318")
+                        });
                 });
 
             modelBuilder.Entity("server.Models.ApplicationUser", b =>
@@ -321,16 +383,16 @@ namespace server.Migrations
                         {
                             Id = "user-admin-1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f8ad3925-c75b-4c1f-8f73-388834d6b522",
+                            ConcurrencyStamp = "e8fa7cc5-0701-4c22-9d55-b23f0333459a",
                             Email = "working@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "WORKING@KETER.RO",
                             NormalizedUserName = "WORKING_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAELcxTqJFDEQGkuuqsgfw7iF2D6/1aF8J9nXveJE1aQL1OWdtGYtpRQJyAy5z0xjUyw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFpnQVi/Qveb/rBOG29Ak+iopKy6PtqJulgQe5MF/gmJrWYdjH5WuvFlUzBJUn1yWw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "/../avatars/WorkingRaccoon.png",
-                            SecurityStamp = "f5319486-2472-4c29-9017-8a70e7433ea3",
+                            SecurityStamp = "93328776-7284-4cf0-b6e4-81df7add9606",
                             TwoFactorEnabled = false,
                             UserName = "working_raccoon"
                         },
@@ -338,16 +400,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "083b3df2-cd70-4f90-8525-1ee752e00e2b",
+                            ConcurrencyStamp = "74f9f2d1-c2ef-4781-bd71-40044854418c",
                             Email = "money@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MONEY@KETER.RO",
                             NormalizedUserName = "MONEY_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEACSFFg7kkdF/aY13z9VA1dHzb1LkuKjahewsnlUzrHzTj++W6HxZ8emnTRNeET/mA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELu9mrdPne73eamn31VPMoyIlX3sQvKDUW8gJWg31mVqHDydWRsaUJWD9oq0lcN3qA==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "/../avatars/CardRaccoon.png",
-                            SecurityStamp = "b3be891b-0b0f-4c4f-b7b6-2571d26265d9",
+                            SecurityStamp = "057d7c40-8839-4a76-b01f-70aed706e197",
                             TwoFactorEnabled = false,
                             UserName = "money_raccoon"
                         },
@@ -355,16 +417,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "95cd462d-3ba5-497c-9873-815b48558acf",
+                            ConcurrencyStamp = "fc0a66e1-705e-4f00-94b5-ae772706caad",
                             Email = "cool@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "COOL@KETER.RO",
                             NormalizedUserName = "COOL_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBZYRlmGoKqga5sLme6wehrzXWjj3KzBj2Yt3QLzIxreSnBW6a4Yz8U9ergXR6+dyQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ/vDdlno5YFmO4GQsUkFSCVlm4SKvG8HXB/7niElywkuqjFrI5M+WfaDZvpPOryTQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "/../avatars/coolRaccoon.png",
-                            SecurityStamp = "b1604d31-26a0-4b13-86f7-e61e061a7b1f",
+                            SecurityStamp = "ca6b7980-4207-462c-9640-f401b7d40f52",
                             TwoFactorEnabled = false,
                             UserName = "cool_raccoon"
                         },
@@ -372,16 +434,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dd4c4765-5f3c-462e-914c-d1c7e97c95f6",
+                            ConcurrencyStamp = "da692d93-83f5-4b21-8971-f98761176a35",
                             Email = "bath@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BATH@KETER.RO",
                             NormalizedUserName = "BATH_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDOoPljwinST2th/3hB/AB+uLO/wefxhz6O5W0lKVwG26CjlltMSgn+RBS6bSl1cVQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPOnKazJ+kDZ7yzDRudiJEMVpSDhdf8frWGinggcPjLqReAIGvDc1JmSvm49EzUZDQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "/../avatars/BathRaccoon.png",
-                            SecurityStamp = "e1d5a9f2-adfd-4a00-b71b-c1fe46a720a1",
+                            SecurityStamp = "d2fab3f3-b36c-4b3d-852b-8885d938ebb3",
                             TwoFactorEnabled = false,
                             UserName = "bath_raccoon"
                         },
@@ -389,16 +451,16 @@ namespace server.Migrations
                         {
                             Id = "user-member-4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "24ee552e-8353-4610-8823-73e9788e71d0",
+                            ConcurrencyStamp = "3c30b329-a2ea-4993-b033-1ea2800c0c54",
                             Email = "banana@keter.ro",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BANANA@KETER.RO",
                             NormalizedUserName = "BANANA_RACCOON",
-                            PasswordHash = "AQAAAAIAAYagAAAAENlDxy8th3VNs+M/uRtR/736huINyc02FXPj9FStz7g10ydmR0365QMJW31OSKjhFg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN+b4fywr7HW1F0qBwgheaEbwY0OBWanlAPGoP6pyxNFMTfzuVVq1G7vKnG7B3UIMg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "/../avatars/BananaRaccoon.png",
-                            SecurityStamp = "a2f34149-7cca-4c43-aab5-f966c3b05c92",
+                            SecurityStamp = "3dac9d85-5dfa-43c5-9136-01503a24421b",
                             TwoFactorEnabled = false,
                             UserName = "banana_raccoon"
                         });
@@ -436,6 +498,36 @@ namespace server.Migrations
                             Id = new Guid("22222222-2222-2222-2222-222222222222"),
                             Name = "Frontend React",
                             ProjectId = new Guid("11111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222223"),
+                            Name = "Dezvoltare Magazin",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111112")
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222224"),
+                            Name = "Marketing",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111112")
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222225"),
+                            Name = "iOS App",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111113")
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222226"),
+                            Name = "Android App",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111113")
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222227"),
+                            Name = "Implementare ERP",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111114")
                         });
                 });
 
@@ -486,22 +578,127 @@ namespace server.Migrations
                         },
                         new
                         {
-                            Id = new Guid("44444444-4444-4444-4444-444444444421"),
+                            Id = new Guid("44444444-4444-4444-4444-444444444414"),
                             BoardId = new Guid("22222222-2222-2222-2222-222222222222"),
                             Order = 0,
                             Title = "To Do"
                         },
                         new
                         {
-                            Id = new Guid("44444444-4444-4444-4444-444444444422"),
+                            Id = new Guid("44444444-4444-4444-4444-444444444415"),
                             BoardId = new Guid("22222222-2222-2222-2222-222222222222"),
                             Order = 1,
                             Title = "In Progress"
                         },
                         new
                         {
-                            Id = new Guid("44444444-4444-4444-4444-444444444423"),
+                            Id = new Guid("44444444-4444-4444-4444-444444444416"),
                             BoardId = new Guid("22222222-2222-2222-2222-222222222222"),
+                            Order = 2,
+                            Title = "Done"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444417"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222223"),
+                            Order = 0,
+                            Title = "To Do"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444418"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222223"),
+                            Order = 1,
+                            Title = "In Progress"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444419"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222223"),
+                            Order = 2,
+                            Title = "Done"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444420"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222224"),
+                            Order = 0,
+                            Title = "To Do"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444421"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222224"),
+                            Order = 1,
+                            Title = "In Progress"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444422"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222224"),
+                            Order = 2,
+                            Title = "Done"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444423"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222225"),
+                            Order = 0,
+                            Title = "To Do"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444424"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222225"),
+                            Order = 1,
+                            Title = "In Progress"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444425"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222225"),
+                            Order = 2,
+                            Title = "Done"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444426"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222226"),
+                            Order = 0,
+                            Title = "To Do"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444427"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222226"),
+                            Order = 1,
+                            Title = "In Progress"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444428"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222226"),
+                            Order = 2,
+                            Title = "Done"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444429"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222227"),
+                            Order = 0,
+                            Title = "To Do"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444430"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222227"),
+                            Order = 1,
+                            Title = "In Progress"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444431"),
+                            BoardId = new Guid("22222222-2222-2222-2222-222222222227"),
                             Order = 2,
                             Title = "Done"
                         });
@@ -538,9 +735,33 @@ namespace server.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CreatedAt = new DateTime(2026, 3, 27, 11, 55, 41, 276, DateTimeKind.Utc).AddTicks(3560),
+                            CreatedAt = new DateTime(2026, 3, 28, 17, 53, 30, 910, DateTimeKind.Utc).AddTicks(2430),
                             Description = "Proiect pentru facultate",
                             Name = "Platforma Keter",
+                            OwnerId = "user-admin-1"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111112"),
+                            CreatedAt = new DateTime(2026, 3, 28, 17, 53, 30, 910, DateTimeKind.Utc).AddTicks(2430),
+                            Description = "E-commerce cu React și C#",
+                            Name = "Magazin Online",
+                            OwnerId = "user-admin-1"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111113"),
+                            CreatedAt = new DateTime(2026, 3, 28, 17, 53, 30, 910, DateTimeKind.Utc).AddTicks(2440),
+                            Description = "Aplicație de fitness",
+                            Name = "Aplicație Mobilă",
+                            OwnerId = "user-admin-1"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111114"),
+                            CreatedAt = new DateTime(2026, 3, 28, 17, 53, 30, 910, DateTimeKind.Utc).AddTicks(2440),
+                            Description = "ERP pentru firmă locală",
+                            Name = "Sistem Gestiune",
                             OwnerId = "user-admin-1"
                         });
                 });
@@ -586,7 +807,52 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("33333333-3333-3333-3333-333333333331"),
+                            Id = new Guid("33333333-3333-3333-3333-333333333301"),
+                            AssignedUserId = "user-member-1",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444411"),
+                            Order = 0,
+                            Status = "To Do",
+                            Title = "Implementare JWT Token"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333302"),
+                            AssignedUserId = "user-member-2",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444411"),
+                            Order = 1,
+                            Status = "To Do",
+                            Title = "Creare endpoint Login"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333303"),
+                            AssignedUserId = "user-admin-1",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444411"),
+                            Order = 2,
+                            Status = "To Do",
+                            Title = "Securizare rute API"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333304"),
+                            AssignedUserId = "user-member-3",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444412"),
+                            Order = 0,
+                            Status = "In Progress",
+                            Title = "Creare DbContext"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333305"),
+                            AssignedUserId = "user-member-4",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444412"),
+                            Order = 1,
+                            Status = "In Progress",
+                            Title = "Migrari baza de date"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333306"),
                             AssignedUserId = "user-member-1",
                             ColumnId = new Guid("44444444-4444-4444-4444-444444444413"),
                             Order = 0,
@@ -595,30 +861,129 @@ namespace server.Migrations
                         },
                         new
                         {
-                            Id = new Guid("33333333-3333-3333-3333-333333333332"),
-                            AssignedUserId = "user-member-2",
-                            ColumnId = new Guid("44444444-4444-4444-4444-444444444412"),
-                            Order = 0,
-                            Status = "In Progress",
-                            Title = "Creare DbContext"
-                        },
-                        new
-                        {
-                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
+                            Id = new Guid("33333333-3333-3333-3333-333333333307"),
                             AssignedUserId = "user-member-3",
-                            ColumnId = new Guid("44444444-4444-4444-4444-444444444421"),
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444414"),
                             Order = 0,
                             Status = "To Do",
                             Title = "Design UI in SCSS"
                         },
                         new
                         {
-                            Id = new Guid("33333333-3333-3333-3333-333333333334"),
+                            Id = new Guid("33333333-3333-3333-3333-333333333308"),
                             AssignedUserId = "user-member-4",
-                            ColumnId = new Guid("44444444-4444-4444-4444-444444444421"),
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444414"),
                             Order = 1,
                             Status = "To Do",
                             Title = "Integrare Axios"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333309"),
+                            AssignedUserId = "user-admin-1",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444415"),
+                            Order = 0,
+                            Status = "In Progress",
+                            Title = "Componenta BoardCard"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333310"),
+                            AssignedUserId = "user-member-1",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444415"),
+                            Order = 1,
+                            Status = "In Progress",
+                            Title = "Meniu de navigare"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333311"),
+                            AssignedUserId = "user-member-2",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444415"),
+                            Order = 2,
+                            Status = "In Progress",
+                            Title = "Grafic statistic (CSS Grid)"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333312"),
+                            AssignedUserId = "user-member-3",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444416"),
+                            Order = 0,
+                            Status = "Done",
+                            Title = "Setup initial Vite"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333313"),
+                            AssignedUserId = "user-member-1",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444417"),
+                            Order = 0,
+                            Status = "To Do",
+                            Title = "Integrare Stripe pentru plati"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333314"),
+                            AssignedUserId = "user-member-3",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444419"),
+                            Order = 0,
+                            Status = "Done",
+                            Title = "Design Pagina de Produs"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333315"),
+                            AssignedUserId = "user-member-4",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444420"),
+                            Order = 0,
+                            Status = "To Do",
+                            Title = "Setup Campanie Facebook Ads"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333316"),
+                            AssignedUserId = "user-member-2",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444421"),
+                            Order = 0,
+                            Status = "In Progress",
+                            Title = "Design bannere promovare"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333317"),
+                            AssignedUserId = "user-member-3",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444423"),
+                            Order = 0,
+                            Status = "To Do",
+                            Title = "Integrare Apple Login"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333318"),
+                            AssignedUserId = "user-admin-1",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444425"),
+                            Order = 0,
+                            Status = "Done",
+                            Title = "Setup initial proiect Swift"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333319"),
+                            AssignedUserId = "user-member-1",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444427"),
+                            Order = 0,
+                            Status = "In Progress",
+                            Title = "Push notifications cu Firebase"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333320"),
+                            AssignedUserId = "user-member-4",
+                            ColumnId = new Guid("44444444-4444-4444-4444-444444444429"),
+                            Order = 0,
+                            Status = "To Do",
+                            Title = "Dezvoltare Modul HR"
                         });
                 });
 
@@ -637,28 +1002,155 @@ namespace server.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("Tags");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("55555555-5555-5555-5555-555555555551"),
-                            ColorHex = "#3b82f6",
-                            Name = "Feature"
+                            Id = new Guid("55555555-5555-5555-5555-555555555501"),
+                            ColorHex = "#E27893",
+                            Name = "Important",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("55555555-5555-5555-5555-555555555552"),
-                            ColorHex = "#ef4444",
-                            Name = "Bug"
+                            Id = new Guid("55555555-5555-5555-5555-555555555502"),
+                            ColorHex = "#734FCF",
+                            Name = "Programming",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
-                            Id = new Guid("55555555-5555-5555-5555-555555555553"),
-                            ColorHex = "#10b981",
-                            Name = "DevOps"
+                            Id = new Guid("55555555-5555-5555-5555-555555555503"),
+                            ColorHex = "#EDCF8E",
+                            Name = "UI/UX",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555504"),
+                            ColorHex = "#C28CAE",
+                            Name = "Social Media",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555505"),
+                            ColorHex = "#D9D9D9",
+                            Name = "Optional",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111111")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555506"),
+                            ColorHex = "#E27893",
+                            Name = "Important",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111112")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555507"),
+                            ColorHex = "#734FCF",
+                            Name = "Programming",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111112")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555508"),
+                            ColorHex = "#EDCF8E",
+                            Name = "UI/UX",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111112")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555509"),
+                            ColorHex = "#C28CAE",
+                            Name = "Social Media",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111112")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555510"),
+                            ColorHex = "#D9D9D9",
+                            Name = "Optional",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111112")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555511"),
+                            ColorHex = "#E27893",
+                            Name = "Important",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111113")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555512"),
+                            ColorHex = "#734FCF",
+                            Name = "Programming",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111113")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555513"),
+                            ColorHex = "#EDCF8E",
+                            Name = "UI/UX",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111113")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555514"),
+                            ColorHex = "#C28CAE",
+                            Name = "Social Media",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111113")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555515"),
+                            ColorHex = "#D9D9D9",
+                            Name = "Optional",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111113")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555516"),
+                            ColorHex = "#E27893",
+                            Name = "Important",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111114")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555517"),
+                            ColorHex = "#734FCF",
+                            Name = "Programming",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111114")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555518"),
+                            ColorHex = "#EDCF8E",
+                            Name = "UI/UX",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111114")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555519"),
+                            ColorHex = "#C28CAE",
+                            Name = "Social Media",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111114")
+                        },
+                        new
+                        {
+                            Id = new Guid("55555555-5555-5555-5555-555555555520"),
+                            ColorHex = "#D9D9D9",
+                            Name = "Optional",
+                            ProjectId = new Guid("11111111-1111-1111-1111-111111111114")
                         });
                 });
 
@@ -792,6 +1284,17 @@ namespace server.Migrations
                     b.Navigation("AssignedUser");
 
                     b.Navigation("Column");
+                });
+
+            modelBuilder.Entity("server.Models.Tag", b =>
+                {
+                    b.HasOne("server.Models.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("server.Models.ApplicationUser", b =>
