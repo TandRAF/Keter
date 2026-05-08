@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../../components/Button/Button";
 import InputData from "../../components/InputData/InputData";
 import { IconGallery, Add, Download } from "../../components/Icons/Icons";
-import styles from "./UIKit.module.scss";
+import styles from "./UiKit.module.scss";
 
 export const UIKit = () => {
   return (
