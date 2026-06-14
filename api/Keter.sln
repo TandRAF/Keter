@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keter.Domain", "Keter.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keter.Api", "Keter.Api\Keter.Api.csproj", "{FFFD49B8-AEF6-46D2-92A3-39CC92425CDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keter.Api.IntegrationTests", "Keter.Api.IntegrationTests\Keter.Api.IntegrationTests.csproj", "{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{FFFD49B8-AEF6-46D2-92A3-39CC92425CDA}.Release|x64.Build.0 = Release|Any CPU
 		{FFFD49B8-AEF6-46D2-92A3-39CC92425CDA}.Release|x86.ActiveCfg = Release|Any CPU
 		{FFFD49B8-AEF6-46D2-92A3-39CC92425CDA}.Release|x86.Build.0 = Release|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Debug|x64.Build.0 = Debug|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Debug|x86.Build.0 = Debug|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Release|x64.ActiveCfg = Release|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Release|x64.Build.0 = Release|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Release|x86.ActiveCfg = Release|Any CPU
+		{4658A0C0-2DD6-4FEF-ABD3-FD3EF378F219}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,10 +5,11 @@ using MediatR;
 namespace Keter.Api.Infrastructure.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IRequest<TResponse>
+    where TRequest : notnull
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
+    // Injectăm toate validatoarele găsite în proiect pentru cererea curentă
     public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
         _validators = validators;
@@ -16,30 +17,30 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        // If this request doesn't have any validators, just let it through
         if (!_validators.Any())
         {
-            return await next();
+            return await next(); // Dacă nu există validatoare pentru comanda asta, mergem mai departe la Handler
         }
 
         var context = new ValidationContext<TRequest>(request);
 
-        // Run all validators for this specific request
+        // Rulăm toate validatoarele în paralel
         var validationResults = await Task.WhenAll(
             _validators.Select(v => v.ValidateAsync(context, cancellationToken)));
 
+        // Colectăm toate erorile
         var failures = validationResults
+            .Where(r => r.Errors.Any())
             .SelectMany(r => r.Errors)
-            .Where(f => f != null)
             .ToList();
 
-        // If any validation rules failed, throw an exception BEFORE hitting the handler!
         if (failures.Any())
         {
+            // Oprim fluxul și aruncăm excepția de la FluentValidation
             throw new ValidationException(failures);
         }
 
-        // Everything is valid. Let the request proceed to the Handler.
+        // Dacă totul e valid, trecem la următorul pas (sau la Handler)
         return await next();
     }
 }
