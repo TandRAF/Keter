@@ -6,6 +6,11 @@ using Keter.Api.Features.Auth.Register;
 using Keter.Api.Infrastructure.Database.Seeding;
 using Keter.Api.Features.Auth.Login;
 using Keter.Api.Features.Workspaces.CreateWorkspace;
+using Keter.Api.Features.Workspaces.DeleteWorkspace;
+using Keter.Api.Features.Workspaces.GetWorkspaces  ;
+using Keter.Api.Features.Workspaces.GetWorkspaceById ;
+using Keter.Api.Features.Workspaces.GetWorkspaceMembers ;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +54,11 @@ app.MapLoginEndpoint();
 
 // Workspace Endpoints
 app.MapCreateWorkspaceEndpoint();
+app.MapDeleteWorkspaceEndpoint();
+app.MapGetWorkspacesEndpoint();
+app.MapGetWorkspaceMembersEndpoint();
+app.MapGetWorkspaceByIdEndpoint();
+
 await app.InitializeDatabaseAsync();
 await app.SeedDatabaseAsync();
 
